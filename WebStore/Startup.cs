@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -47,7 +46,7 @@ namespace WebStore
                 // второй - им€ действи€ (метода) в контроллере,
                 // третей - опциональный параметр с именем УidФ
                 // ≈сли часть не указана - используютс€ значени€ по умолчанию:
-                // дл€ контроллера им€ УHomeФ,
+                // дл€ контроллера им€ УGoodsФ,
                 // дл€ действи€ - УIndexФ
 
             });

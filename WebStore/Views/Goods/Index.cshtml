@@ -1,26 +1,15 @@
 ﻿
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Goods</title>
-</head>
-<body>
-    <h1>Товары</h1>
-    <table>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Description</td>
-                <td>@item.Price</td>
-                <td>@*<a asp-action="Details" asp-route-id="@item.Id"></a>*@</td>
-                <td>
-                    @Html.ActionLink("Подробнее...", "Details", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </table>
-
-</body>
-</html>
+<h1>Товары</h1>
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Description</td>
+            <td>@item.Price</td>
+            <td>@*<a asp-action="Details" asp-route-id="@item.Id"></a>*@</td>
+            <td>
+                @Html.ActionLink("Подробнее...", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
