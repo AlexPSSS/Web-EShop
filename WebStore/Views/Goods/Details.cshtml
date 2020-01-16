@@ -1,0 +1,36 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <h1>Характеристики</h1>
+    @Html.ActionLink("Назад к товарам", "Index")
+    <table class="table table-bordered">
+        <tr>
+            <td>Id</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Наименование</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>Группа</td>
+            <td>@Model.Group</td>
+        </tr>
+        <tr>
+            <td>EAN13</td>
+            <td>@Model.EAN13</td>
+        </tr>
+        <tr>
+            <td>Цена</td>
+            <td>@Model.Price</td>
+        </tr>
+    </table>
+</body>
+</html>
