@@ -1,4 +1,8 @@
-﻿
+﻿@*  still working?! WTF?!
+    @using WebStore.Models
+    @model IEnumerable<Goods>
+*@
+
 <h1>Товары</h1>
 <table>
     @foreach (var item in Model)
@@ -6,7 +10,6 @@
         <tr>
             <td>@item.Description</td>
             <td>@item.Price</td>
-            <td>@*<a asp-action="Details" asp-route-id="@item.Id"></a>*@</td>
             <td>
                 @Html.ActionLink("Подробнее...", "Details", new { id = item.Id })
             </td>
