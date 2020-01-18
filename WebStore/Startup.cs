@@ -29,6 +29,7 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -40,7 +41,7 @@ namespace WebStore
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Goods}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 // ћаршрут по умолчанию состоит из трЄх частей разделЄнных У/Ф
                 // ѕервой частью указываетс€ им€ контроллера,
                 // второй - им€ действи€ (метода) в контроллере,
