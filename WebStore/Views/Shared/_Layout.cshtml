@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    bool isNeedHeadFoot = !(ViewData["Title"].ToString()).Contains("404");
+    Microsoft.AspNetCore.Html.IHtmlContent x;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +34,20 @@
 </head><!--/head-->
 
 <body>
-    @await Html.PartialAsync("_Header");
+
+    @if (isNeedHeadFoot)
+    {
+        x = await Html.PartialAsync("_Header");
+        @x;
+    }
 
     @RenderBody()
 
-    @await Html.PartialAsync("_Footer");
+    @if (isNeedHeadFoot)
+    {
+        x = await Html.PartialAsync("_Footer");
+        @x;
+    }
 
     <script src="~/js/jquery.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
