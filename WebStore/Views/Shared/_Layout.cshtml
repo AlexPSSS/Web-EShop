@@ -35,9 +35,11 @@
     {
         @(await Html.PartialAsync("_Header"));
     }
-
-    @RenderBody()
-
+    
+    <div class="container">
+        @RenderBody()
+    </div>
+    
     @if ((bool)ViewData["IsFoot"])
     {
         @(await Html.PartialAsync("_Footer"));
