@@ -1,18 +1,21 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Infrastructure;
 
 namespace WebStore
 {
     public class Startup
     {
-        //private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
-        //public Startup(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //}
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -30,6 +33,18 @@ namespace WebStore
             }
 
             app.UseStaticFiles();
+
+            app.UseWelcomePage("/welcome");
+
+            app.Map("/index", CustomIndexHandler);
+
+            app.UseMiddleware<TokenMiddleware>();
+
+            UseSample(app);
+
+            var helloMessage = _configuration["CustomHelloWorld"];
+            var logLevel = _configuration["Logging:LogLevel:Microsoft"];
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -50,6 +65,41 @@ namespace WebStore
                 // дл€ контроллера им€ УGoodsФ,
                 // дл€ действи€ - УIndexФ
 
+                endpoints.Map("/hello", async context =>
+                {
+                    await context.Response.WriteAsync(helloMessage);
+                });
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("ƒаже не знаю, что ¬ам сказать...");
+            });
+        }
+
+        private void UseSample(IApplicationBuilder app)
+        {
+            app.Use(async (context, next) =>
+            {
+                bool isError = false;
+                // ...
+                if (isError)
+                {
+                    await context.Response
+                        .WriteAsync("Error occured. You're in custom pipeline module...");
+                }
+                else
+                {
+                    await next.Invoke();
+                }
+            });
+        }
+
+        private void CustomIndexHandler(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Hello from custom /Index handler");
             });
         }
     }
