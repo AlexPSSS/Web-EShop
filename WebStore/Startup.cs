@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure;
+using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
 {
@@ -21,7 +23,19 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
+                //альтернативный вариант подключения
+                //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
+
+            });
+
+            // Добавляем разрешение зависимости
+            services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
+            //services.AddTransient<IEmployeesService, InMemoryEmployeesService>();
+            //services.AddScoped<IEmployeesService, InMemoryEmployeesService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,9 +9,6 @@ namespace WebStore.Infrastructure.Interfaces
     /// <summary>
     /// Интерфейс для работы с сотрудниками
     /// </summary>
-    /// <summary>
-    /// Интерфейс для работы с сотрудниками
-    /// </summary>
     public interface IEmployeesService
     {
         /// <summary>
