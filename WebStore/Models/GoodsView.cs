@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Goods
+    public class GoodsView
     {
             public int Id { get; set; }
             public string Description { get; set; }
