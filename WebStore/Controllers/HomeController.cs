@@ -36,7 +36,7 @@ namespace WebStore.Controllers
         {
             return View();
         }
-        public IActionResult Products()
+        public IActionResult Shop()
         {
             return View();
         }
