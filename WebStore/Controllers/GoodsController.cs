@@ -9,9 +9,9 @@ namespace WebStore.Controllers
 {
     public class GoodsController : Controller
     {
-        private readonly IGoodsService _goodsService;
+        private readonly IEmployeesService<GoodsView> _goodsService;
 
-        public GoodsController(IGoodsService goodsService)
+        public GoodsController(IEmployeesService<GoodsView> goodsService)
         {
             _goodsService = goodsService;
         }

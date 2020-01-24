@@ -7,7 +7,7 @@ using WebStore.Models;
 
 namespace WebStore.Infrastructure.Implementations
 {
-    public class InMemoryEmployeesService : IEmployeesService
+    public class InMemoryEmployeesService : IEmployeesService<EmployeeView>
     {
         private readonly List<EmployeeView> _employees;
 

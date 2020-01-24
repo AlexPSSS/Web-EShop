@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Models;
 
 namespace WebStore
 {
@@ -32,10 +34,11 @@ namespace WebStore
             });
 
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
+            services.AddSingleton<IEmployeesService<EmployeeView>, InMemoryEmployeesService>();
             //services.AddTransient<IEmployeesService, InMemoryEmployeesService>();
             //services.AddScoped<IEmployeesService, InMemoryEmployeesService>();
-            services.AddSingleton<IGoodsService, InMemoryGoodsService>();
+
+            services.AddSingleton<IEmployeesService<GoodsView>, InMemoryGoodsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

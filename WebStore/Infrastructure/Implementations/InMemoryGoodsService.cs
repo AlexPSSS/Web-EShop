@@ -7,7 +7,7 @@ using WebStore.Models;
 
 namespace WebStore.Infrastructure.Implementations
 {
-    public class InMemoryGoodsService : IGoodsService
+    public class InMemoryGoodsService : IEmployeesService<GoodsView>
     {
         private readonly List<GoodsView> _goods;
         public InMemoryGoodsService()
@@ -50,7 +50,7 @@ namespace WebStore.Infrastructure.Implementations
 
         public void AddNew(GoodsView model)
         {
-            model.Id = _goods.Max(e => e.Id) + 1;
+            model.Id = ((_goods.Count > 0)?_goods.Max(e => e.Id) : 0) + 1;
             _goods.Add(model);
         }
 
