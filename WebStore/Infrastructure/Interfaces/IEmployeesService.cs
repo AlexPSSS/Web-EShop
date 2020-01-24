@@ -9,20 +9,20 @@ namespace WebStore.Infrastructure.Interfaces
     /// <summary>
     /// Интерфейс для работы с сотрудниками
     /// </summary>
-    public interface IEmployeesService
+    public interface IEmployeesService<T>
     {
         /// <summary>
         /// Получение списка сотрудников
         /// </summary>
         /// <returns></returns>
-        IEnumerable<EmployeeView> GetAll();
+        IEnumerable<T> GetAll();
 
         /// <summary>
         /// Получение сотрудника по id
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns></returns>
-        EmployeeView GetById(int id);
+        T GetById(int id);
 
         /// <summary>
         /// Сохранить изменения
@@ -33,7 +33,7 @@ namespace WebStore.Infrastructure.Interfaces
         /// Добавить нового
         /// </summary>
         /// <param name="model"></param>
-        void AddNew(EmployeeView model);
+        void AddNew(T model);
 
         /// <summary>
         /// Удалить

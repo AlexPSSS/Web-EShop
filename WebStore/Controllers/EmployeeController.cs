@@ -13,9 +13,9 @@ namespace WebStore.Controllers
     // ~/users
     public class EmployeeController : Controller
     {
-        private readonly IEmployeesService _employeesService;
+        private readonly IEmployeesService<EmployeeView> _employeesService;
 
-        public EmployeeController(IEmployeesService employeesService)
+        public EmployeeController(IEmployeesService<EmployeeView> employeesService)
         {
             _employeesService = employeesService;
         }
