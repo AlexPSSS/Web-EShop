@@ -3,6 +3,10 @@
     @model IEnumerable<Goods>
 *@
 
+@{
+    ViewData["Title"] = "Товары";
+}
+
 <h1>Товары</h1>
 <table>
     @foreach (var item in Model)

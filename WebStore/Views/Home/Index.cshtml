@@ -1,0 +1,25 @@
+﻿@{ 
+    ViewData["Title"] = "Главная страница";
+}
+
+@await Html.PartialAsync("_Partial/_Slider");
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    @await Html.PartialAsync("_Partial/_LeftSideBar");
+                </div>
+
+                <div class="col-sm-9 padding-right">
+
+                    @await Html.PartialAsync("_Partial/_FeaturesItems");
+
+                    @await Html.PartialAsync("_Partial/_CategoryTab");
+
+                    @await Html.PartialAsync("_Partial/_RecommItems");
+
+                </div>
+            </div>
+        </div>
+    </section>
