@@ -13,9 +13,9 @@ namespace WebStore.Controllers
     // ~/users
     public class EmployeeController : Controller
     {
-        private readonly IEmployeesService<EmployeeView> _employeesService;
+        private readonly IEmployeesService<EmployeeViewModel> _employeesService;
 
-        public EmployeeController(IEmployeesService<EmployeeView> employeesService)
+        public EmployeeController(IEmployeesService<EmployeeViewModel> employeesService)
         {
             _employeesService = employeesService;
         }
@@ -55,9 +55,9 @@ namespace WebStore.Controllers
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue)
-                return View(new EmployeeView());
+                return View(new EmployeeViewModel());
 
-            EmployeeView model = _employeesService.GetById(id.Value);
+            EmployeeViewModel model = _employeesService.GetById(id.Value);
             if (model == null)
                 return NotFound();// возвращаем результат 404 Not Found
 
@@ -66,7 +66,7 @@ namespace WebStore.Controllers
 
         [HttpPost]
         [Route("edit/{id?}")]
-        public IActionResult Edit(EmployeeView model)
+        public IActionResult Edit(EmployeeViewModel model)
         {
             if (model.Age < 18 || model.Age > 100)
             {
