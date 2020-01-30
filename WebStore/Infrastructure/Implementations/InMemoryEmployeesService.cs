@@ -7,15 +7,15 @@ using WebStore.Models;
 
 namespace WebStore.Infrastructure.Implementations
 {
-    public class InMemoryEmployeesService : IEmployeesService<EmployeeView>
+    public class InMemoryEmployeesService : IEmployeesService<EmployeeViewModel>
     {
-        private readonly List<EmployeeView> _employees;
+        private readonly List<EmployeeViewModel> _employees;
 
         public InMemoryEmployeesService()
         {
-            _employees = new List<EmployeeView>
+            _employees = new List<EmployeeViewModel>
             {
-                new EmployeeView
+                new EmployeeViewModel
                 {
                     Id = 1,
                     FirstName = "Иван",
@@ -23,7 +23,7 @@ namespace WebStore.Infrastructure.Implementations
                     Patronymic = "Иванович",
                     Age = 22
                 },
-                new EmployeeView
+                new EmployeeViewModel
                 {
                     Id = 2,
                     FirstName = "Владислав",
@@ -36,12 +36,12 @@ namespace WebStore.Infrastructure.Implementations
 
         }
 
-        public IEnumerable<EmployeeView> GetAll()
+        public IEnumerable<EmployeeViewModel> GetAll()
         {
             return _employees;
         }
 
-        public EmployeeView GetById(int id)
+        public EmployeeViewModel GetById(int id)
         {
             return _employees.FirstOrDefault(e => e.Id.Equals(id));
         }
@@ -51,7 +51,7 @@ namespace WebStore.Infrastructure.Implementations
             // ничего не делаем
         }
 
-        public void AddNew(EmployeeView model)
+        public void AddNew(EmployeeViewModel model)
         {
             model.Id = _employees.Max(e => e.Id) + 1;
             _employees.Add(model);
