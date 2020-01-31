@@ -1,0 +1,22 @@
+﻿@model System.Collections.Generic.List<WebStore.Models.BrandViewModel>
+
+<h2>Бренды</h2>
+
+<div class="brands_products">
+    <!--brands_products-->
+    @foreach (var brandItem in Model)
+    {
+        if (brandItem.Quantity > 0) // если есть товары бренда
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a asp-controller="Catalog"
+                           asp-action="Shop"
+                           asp-route-CategoryId="@brandItem.Id">@brandItem.Name</a>
+                    </h4>
+                </div>
+            </div>
+        }
+    }
+</div><!--/brands_products-->
