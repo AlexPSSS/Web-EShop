@@ -34,10 +34,10 @@ namespace WebStore
             });
 
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEmployeesService<EmployeeViewModel>, InMemoryEmployeesService>();
-            //services.AddTransient<IEmployeesService, InMemoryEmployeesService>();
-            //services.AddScoped<IEmployeesService, InMemoryEmployeesService>();
-            services.AddSingleton<IEmployeesService<GoodsView>, InMemoryGoodsService>();
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
+            //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
+            //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
+            services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
 
             services.AddSingleton<IProductService, InMemoryProductService>();
         }
