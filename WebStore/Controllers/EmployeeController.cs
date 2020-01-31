@@ -13,11 +13,11 @@ namespace WebStore.Controllers
     // ~/users
     public class EmployeeController : Controller
     {
-        private readonly IEmployeesService<EmployeeViewModel> _employeesService;
+        private readonly IEntityListService<EmployeeViewModel> _entityListService;
 
-        public EmployeeController(IEmployeesService<EmployeeViewModel> employeesService)
+        public EmployeeController(IEntityListService<EmployeeViewModel> entityListService)
         {
-            _employeesService = employeesService;
+            _entityListService = entityListService;
         }
 
         // GET: /
@@ -27,7 +27,7 @@ namespace WebStore.Controllers
         // ~/users/all
         public IActionResult Index()
         {
-            return View(_employeesService.GetAll());
+            return View(_entityListService.GetAll());
             //return Content("Hello from controller");
         }
 
@@ -36,7 +36,7 @@ namespace WebStore.Controllers
         // ~/users/1111
         public IActionResult Details(int id)
         {
-            var employee = _employeesService.GetById(id);
+            var employee = _entityListService.GetById(id);
 
             //Если такого не существует
             if (employee == null)
@@ -57,7 +57,7 @@ namespace WebStore.Controllers
             if (!id.HasValue)
                 return View(new EmployeeViewModel());
 
-            EmployeeViewModel model = _employeesService.GetById(id.Value);
+            EmployeeViewModel model = _entityListService.GetById(id.Value);
             if (model == null)
                 return NotFound();// возвращаем результат 404 Not Found
 
@@ -79,7 +79,7 @@ namespace WebStore.Controllers
             }
             if (model.Id > 0) // если есть Id, то редактируем модель
             {
-                var dbItem = _employeesService.GetById(model.Id);
+                var dbItem = _entityListService.GetById(model.Id);
 
                 if (ReferenceEquals(dbItem, null))
                     return NotFound();// возвращаем результат 404 Not Found
@@ -92,9 +92,9 @@ namespace WebStore.Controllers
             }
             else // иначе добавляем модель в список
             {
-                _employeesService.AddNew(model);
+                _entityListService.AddNew(model);
             }
-            _employeesService.Commit(); // станет актуальным позднее (когда добавим БД)
+            _entityListService.Commit(); // станет актуальным позднее (когда добавим БД)
 
             return RedirectToAction(nameof(Index));
         }
@@ -102,7 +102,7 @@ namespace WebStore.Controllers
         [Route("delete/{id}")]
         public IActionResult Delete(int id)
         {
-            _employeesService.Delete(id);
+            _entityListService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }

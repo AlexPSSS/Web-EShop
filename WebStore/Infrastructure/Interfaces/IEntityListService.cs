@@ -9,7 +9,7 @@ namespace WebStore.Infrastructure.Interfaces
     /// <summary>
     /// Интерфейс для работы с сотрудниками
     /// </summary>
-    public interface IEmployeesService<T>
+    public interface IEntityListService<T>
     {
         /// <summary>
         /// Получение списка сотрудников

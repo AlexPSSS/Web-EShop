@@ -10,7 +10,7 @@ namespace WebStore.Models
     {
         public BrandViewModel()
         {
-            Quantity = 1;
+            Quantity = 0;
         }
 
         public int Id { get; set; }
