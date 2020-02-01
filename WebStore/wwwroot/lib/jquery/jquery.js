@@ -8500,8 +8500,8 @@ jQuery.extend( {
 		// Extract dataTypes list
 		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().match( rnotwhite ) || [ "" ];
 
-		// A cross-domain request is in order when the origin doesn't match the current origin.
-		if ( s.crossDomain == null ) {
+		// A cross-DomainNew request is in order when the origin doesn't match the current origin.
+		if ( s.crossDomainNew == null ) {
 			urlAnchor = document.createElement( "a" );
 
 			// Support: IE8-11+
@@ -8512,13 +8512,13 @@ jQuery.extend( {
 				// Support: IE8-11+
 				// Anchor's host property isn't correctly set when s.url is relative
 				urlAnchor.href = urlAnchor.href;
-				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
+				s.crossDomainNew = originAnchor.protocol + "//" + originAnchor.host !==
 					urlAnchor.protocol + "//" + urlAnchor.host;
 			} catch ( e ) {
 
-				// If there is an error parsing the URL, assume it is crossDomain,
+				// If there is an error parsing the URL, assume it is crossDomainNew,
 				// it can be rejected by the transport if it is invalid
-				s.crossDomain = true;
+				s.crossDomainNew = true;
 			}
 		}
 
@@ -9051,8 +9051,8 @@ support.ajax = xhrSupported = !!xhrSupported;
 jQuery.ajaxTransport( function( options ) {
 	var callback, errorCallback;
 
-	// Cross domain only allowed if supported through XMLHttpRequest
-	if ( support.cors || xhrSupported && !options.crossDomain ) {
+	// Cross DomainNew only allowed if supported through XMLHttpRequest
+	if ( support.cors || xhrSupported && !options.crossDomainNew ) {
 		return {
 			send: function( headers, complete ) {
 				var i,
@@ -9079,11 +9079,11 @@ jQuery.ajaxTransport( function( options ) {
 				}
 
 				// X-Requested-With header
-				// For cross-domain requests, seeing as conditions for a preflight are
+				// For cross-DomainNew requests, seeing as conditions for a preflight are
 				// akin to a jigsaw puzzle, we simply never set it to be sure.
 				// (it can always be set on a per-request basis or even using ajaxSetup)
-				// For same-domain requests, won't change header if already provided.
-				if ( !options.crossDomain && !headers[ "X-Requested-With" ] ) {
+				// For same-DomainNew requests, won't change header if already provided.
+				if ( !options.crossDomainNew && !headers[ "X-Requested-With" ] ) {
 					headers[ "X-Requested-With" ] = "XMLHttpRequest";
 				}
 
@@ -9208,12 +9208,12 @@ jQuery.ajaxSetup( {
 	}
 } );
 
-// Handle cache's special case and crossDomain
+// Handle cache's special case and crossDomainNew
 jQuery.ajaxPrefilter( "script", function( s ) {
 	if ( s.cache === undefined ) {
 		s.cache = false;
 	}
-	if ( s.crossDomain ) {
+	if ( s.crossDomainNew ) {
 		s.type = "GET";
 	}
 } );
@@ -9221,8 +9221,8 @@ jQuery.ajaxPrefilter( "script", function( s ) {
 // Bind script tag hack transport
 jQuery.ajaxTransport( "script", function( s ) {
 
-	// This transport only deals with cross domain requests
-	if ( s.crossDomain ) {
+	// This transport only deals with cross DomainNew requests
+	if ( s.crossDomainNew ) {
 		var script, callback;
 		return {
 			send: function( _, complete ) {
