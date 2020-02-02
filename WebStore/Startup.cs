@@ -44,7 +44,10 @@ namespace WebStore
             //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
 
-            services.AddSingleton<IProductService, InMemoryProductService>();
+            //services.AddSingleton<IProductService, InMemoryProductService>();
+            // SQL now!
+            services.AddScoped<IProductService, SqlProductService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
