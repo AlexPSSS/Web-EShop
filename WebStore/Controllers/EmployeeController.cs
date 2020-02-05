@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
@@ -11,6 +12,7 @@ namespace WebStore.Controllers
     // ~/employee
     [Route("users")]
     // ~/users
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEntityListService<EmployeeViewModel> _entityListService;
@@ -25,6 +27,7 @@ namespace WebStore.Controllers
         // GET: /home/index
         [Route("all")]
         // ~/users/all
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_entityListService.GetAll());
@@ -52,6 +55,7 @@ namespace WebStore.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("edit/{id?}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue)
@@ -66,6 +70,7 @@ namespace WebStore.Controllers
 
         [HttpPost]
         [Route("edit/{id?}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(EmployeeViewModel model)
         {
             if (model.Age < 18 || model.Age > 100)
@@ -100,6 +105,7 @@ namespace WebStore.Controllers
         }
 
         [Route("delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             _entityListService.Delete(id);
