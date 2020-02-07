@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebStore.DAL;
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
@@ -30,7 +31,10 @@ namespace WebStore.Infrastructure.Implementations
 
         public IEnumerable<Product> GetProducts(ProductFilter filter)
         {
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .AsQueryable();
             if (filter.BrandId.HasValue)
                 query = query.Where(c => c.BrandId.HasValue && c.BrandId.Value.Equals(filter.BrandId.Value));
             if (filter.CategoryId.HasValue)
@@ -38,5 +42,19 @@ namespace WebStore.Infrastructure.Implementations
 
             return query.ToList();
         }
+
+        /// <summary>
+        /// Продукт
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Сущность Product, если нашел, иначе null</returns>
+        public Product GetProductById(int id)
+        {
+            return _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .FirstOrDefault(p => p.Id.Equals(id));
+        }
+
     }
 }
