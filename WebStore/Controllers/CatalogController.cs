@@ -44,9 +44,22 @@ namespace WebStore.Controllers
             return View(model);
         }
 
-        public IActionResult ProductDetails()
+        [Route("{id}")]
+        public IActionResult ProductDetails(int id)
         {
-            return View();
+            var product = _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+            return (View(new ProductViewModel
+                    {
+                        Id = product.Id,
+                        ImageUrl = product.ImageUrl,
+                        Name = product.Name,
+                        Order = product.Order,
+                        Price = product.Price,
+                        Brand = product.Brand != null ? product.Brand.Name : string.Empty
+                    })
+                );
         }
     }
 }

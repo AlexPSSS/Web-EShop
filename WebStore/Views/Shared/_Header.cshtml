@@ -68,7 +68,7 @@
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
-                            <li><a asp-controller="Home" asp-action="Cart">Cart</a></li>
+                            <li><a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                         </ul>
                     </div>
                 </div>
@@ -100,11 +100,8 @@
                                 <ul role="menu" class="sub-menu">
                                     <li><a asp-controller="Catalog" asp-action="Shop">Products</a></li>
                                     <li><a asp-controller="Catalog" asp-action="ProductDetails">Details</a></li>
-                                    <!-- <li><a href="checkout.html">Checkout</a></li> -->
                                     <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
-                                    <!-- <li><a href="cart.html">Cart</a></li> -->
-                                    <li><a asp-controller="Home" asp-action="Cart">Cart</a></li>
-                                    <!-- <li><a href="login.html">Login</a></li> -->
+                                    <li><a asp-controller="Cart" asp-action="Details">Cart</a></li>
                                     <li><a asp-controller="Account" asp-action="Login">Login</a></li>
                                 </ul>
                             </li>
