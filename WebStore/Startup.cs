@@ -50,6 +50,8 @@ namespace WebStore
             //services.AddSingleton<IProductService, InMemoryProductService>();
             // SQL now!
             services.AddScoped<IProductService, SqlProductService>();
+            services.AddScoped<IOrdersService, SqlOrdersService>();
+
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<WebStoreContext>()
