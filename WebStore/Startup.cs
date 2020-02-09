@@ -125,8 +125,15 @@ namespace WebStore
                 //});
 
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+
                 // ћаршрут по умолчанию состоит из трЄх частей разделЄнных У/Ф
                 // ѕервой частью указываетс€ им€ контроллера,
                 // второй - им€ действи€ (метода) в контроллере,
