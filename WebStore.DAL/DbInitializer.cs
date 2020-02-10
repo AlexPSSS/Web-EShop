@@ -48,14 +48,17 @@ namespace WebStore.DAL
         {
             context.Database.EnsureCreated();
 
-            IEnumerable<PropertyInfo> dbSetProperties =
-                context.GetType()
-                    .GetProperties()
-                    .Where(p => p.PropertyType.Name.StartsWith("DbSet"));
+            //IEnumerable<PropertyInfo> dbSetProperties =
+            //    context.GetType()
+            //        .GetProperties()
+            //        .Where(p => p.PropertyType.Name.StartsWith("DbSet"));
 
-            foreach (PropertyInfo dbProp in dbSetProperties)
+            List<string> dbSetProperties = new List<string>() { "Brands", "Categories", "Products"};
+
+
+            foreach (string tableName in dbSetProperties)
             {
-                switch (dbProp.Name)
+                switch (tableName)
                 {
                     case "Products":
                         if (!context.Products.Any())
@@ -183,7 +186,7 @@ namespace WebStore.DAL
                                     BrandId = 3
                                 },
                             };
-                            FillTable<Product>(context, products, dbProp.Name);
+                            FillTable<Product>(context, products, tableName);
                         }
                         break;
                     case "Categories":
@@ -402,7 +405,7 @@ namespace WebStore.DAL
                     ParentId = null
                 }
             };
-                            FillTable<Category>(context, categories, dbProp.Name);
+                            FillTable<Category>(context, categories, tableName);
                         }
                         break;
                     case "Brands":
@@ -453,14 +456,12 @@ namespace WebStore.DAL
                                     Order = 6
                                 },
                             };
-                            FillTable<Brand>(context, brands, dbProp.Name);
+                            FillTable<Brand>(context, brands, tableName);
                         }
                         break;
                 }
             }
         }
-
-
 
         public static void InitializeUsers(IServiceProvider services)
         {
