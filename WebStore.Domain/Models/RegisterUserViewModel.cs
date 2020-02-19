@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Entities.Base.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.Models
+namespace WebStore.Domain.Models
 {
     public class RegisterUserViewModel
     {

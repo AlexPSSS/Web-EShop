@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Models;
+﻿using System.Collections.Generic;
 
-namespace WebStore.Infrastructure.Interfaces
+namespace WebSore.Interfaces.Services
 {
     /// <summary>
     /// Интерфейс для работы с сотрудниками

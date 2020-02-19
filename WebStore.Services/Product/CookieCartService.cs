@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using WebSore.Interfaces.Services;
 using WebStore.Domain.Filters;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Domain.Models;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.Product
 {
     public class CookieCartService : ICartService
     {
         private readonly IProductService _productService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private string _cartName;
+        private readonly string _cartName;
         private Cart Cart
         {
             get

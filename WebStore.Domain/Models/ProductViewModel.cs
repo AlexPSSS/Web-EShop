@@ -1,7 +1,6 @@
-﻿using System;
-using WebStore.Domain.Entities.Base.Interfaces;
+﻿using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Models
+namespace WebStore.Domain.Models
 {
     public class ProductViewModel : INamedEntity, IOrderedEntity
     {

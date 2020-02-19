@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebSore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure;
-using WebStore.Infrastructure.Implementations;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Services.Product;
 
 namespace WebStore
 {

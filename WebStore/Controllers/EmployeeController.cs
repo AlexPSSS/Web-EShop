@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebSore.Interfaces.Services;
+using WebStore.Domain.Models;
 
 namespace WebStore.Controllers
 {
@@ -86,7 +82,7 @@ namespace WebStore.Controllers
             {
                 var dbItem = _entityListService.GetById(model.Id);
 
-                if (ReferenceEquals(dbItem, null))
+                if (object.ReferenceEquals(dbItem, null))
                     return NotFound();// возвращаем результат 404 Not Found
 
                 dbItem.FirstName = model.FirstName;

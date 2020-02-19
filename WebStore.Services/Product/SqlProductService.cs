@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WebSore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
-using WebStore.Infrastructure.Interfaces;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.Product
 {
     public class SqlProductService : IProductService
     {
@@ -29,7 +27,7 @@ namespace WebStore.Infrastructure.Implementations
             return _context.Brands.ToList();
         }
 
-        public IEnumerable<Product> GetProducts(ProductFilter filter)
+        public IEnumerable<Domain.Entities.Product> GetProducts(ProductFilter filter)
         {
             var query = _context.Products
                 .Include(p => p.Category)
@@ -48,7 +46,7 @@ namespace WebStore.Infrastructure.Implementations
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Сущность Product, если нашел, иначе null</returns>
-        public Product GetProductById(int id)
+        public Domain.Entities.Product GetProductById(int id)
         {
             return _context.Products
                 .Include(p => p.Category)

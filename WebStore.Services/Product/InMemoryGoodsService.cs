@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebSore.Interfaces.Services;
+using WebStore.Domain.Models;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.Product
 {
     public class InMemoryGoodsService : IEntityListService<GoodsView>
     {

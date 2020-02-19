@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebSore.Interfaces.Services;
+using WebStore.Domain.Models;
 
 namespace WebStore.Controllers
 {

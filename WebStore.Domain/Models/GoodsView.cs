@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebStore.Models
+﻿namespace WebStore.Domain.Models
 {
     public class GoodsView
     {

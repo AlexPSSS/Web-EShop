@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using WebSore.Interfaces.Services;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.Services.Product
 {
     public class InMemoryProductService : IProductService
     {
         private readonly List<Category> _categories;
         private readonly List<Brand> _brands;
-        private readonly List<Product> _products;
+        private readonly List<Domain.Entities.Product> _products;
 
         public InMemoryProductService()
         {
@@ -275,9 +272,9 @@ namespace WebStore.Infrastructure.Implementations
                     Order = 6
                 },
             };
-            _products = new List<Product>()
+            _products = new List<Domain.Entities.Product>()
             {
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 1,
                     Name = "Easy Polo Black Edition",
@@ -287,7 +284,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 1
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 2,
                     Name = "Easy Polo Black Edition",
@@ -297,7 +294,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 1
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 3,
                     Name = "Easy Polo Black Edition",
@@ -307,7 +304,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 1
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 4,
                     Name = "Easy Polo Black Edition",
@@ -317,7 +314,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 1
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 5,
                     Name = "Easy Polo Black Edition",
@@ -327,7 +324,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 2
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 6,
                     Name = "Easy Polo Black Edition",
@@ -337,7 +334,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 2
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 7,
                     Name = "Easy Polo Black Edition",
@@ -347,7 +344,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 2,
                     BrandId = 2
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 8,
                     Name = "Easy Polo Black Edition",
@@ -357,7 +354,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 25,
                     BrandId = 2
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 9,
                     Name = "Easy Polo Black Edition",
@@ -367,7 +364,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 25,
                     BrandId = 2
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 10,
                     Name = "Easy Polo Black Edition",
@@ -377,7 +374,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 25,
                     BrandId = 3
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 11,
                     Name = "Easy Polo Black Edition",
@@ -387,7 +384,7 @@ namespace WebStore.Infrastructure.Implementations
                     CategoryId = 25,
                     BrandId = 3
                 },
-                new Product()
+                new Domain.Entities.Product()
                 {
                     Id = 12,
                     Name = "Easy Polo Black Edition",
@@ -410,7 +407,7 @@ namespace WebStore.Infrastructure.Implementations
             return _brands;
         }
 
-        public IEnumerable<Product> GetProducts(ProductFilter filter)
+        public IEnumerable<Domain.Entities.Product> GetProducts(ProductFilter filter)
         {
             var products = _products;
 
@@ -426,7 +423,7 @@ namespace WebStore.Infrastructure.Implementations
             return products;
         }
 
-        public Product GetProductById(int id)
+        public Domain.Entities.Product GetProductById(int id)
         {
             return _products.FirstOrDefault(e => e.Id.Equals(id));
         }

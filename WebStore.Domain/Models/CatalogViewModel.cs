@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Entities.Base.Interfaces;
+﻿using System.Collections.Generic;
 
-namespace WebStore.Models
+namespace WebStore.Domain.Models
 {
     public class CatalogViewModel
     {
