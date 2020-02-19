@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using WebStore.DomainNew.Entities.Base.Interfaces;
+using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.DomainNew.Entities.Base
+namespace WebStore.Domain.Entities.Base
 {
     public abstract class BaseEntity : IBaseEntity
     {

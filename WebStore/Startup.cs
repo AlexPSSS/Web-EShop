@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.DAL;
-using WebStore.DomainNew.Entities;
+using WebStore.Domain.Entities;
 using WebStore.Infrastructure;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;

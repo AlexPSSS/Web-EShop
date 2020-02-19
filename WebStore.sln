@@ -8,9 +8,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "WebStore\WebSto
 		{9FEB2AF0-044F-449A-B662-E7F3A6120458} = {9FEB2AF0-044F-449A-B662-E7F3A6120458}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.DomainNew", "WebStore.DomainNew\WebStore.DomainNew.csproj", "{9FEB2AF0-044F-449A-B662-E7F3A6120458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Domain", "WebStore.DomainNew\WebStore.Domain.csproj", "{9FEB2AF0-044F-449A-B662-E7F3A6120458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.DAL", "WebStore.DAL\WebStore.DAL.csproj", "{D2F21D60-2690-484C-9CD1-3E4A1E6E316B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.DAL", "WebStore.DAL\WebStore.DAL.csproj", "{D2F21D60-2690-484C-9CD1-3E4A1E6E316B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F2A975C2-4D08-44EB-A242-DFF6CBEAD60F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{43AFCA80-7A0E-482C-809C-2E843D684BC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FC3D52E0-F079-4BCD-8AF0-4535B0AD91F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

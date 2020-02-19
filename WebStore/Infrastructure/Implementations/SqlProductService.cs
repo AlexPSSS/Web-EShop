@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL;
-using WebStore.DomainNew.Entities;
-using WebStore.DomainNew.Filters;
+using WebStore.Domain.Entities;
+using WebStore.Domain.Filters;
 using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.Infrastructure.Implementations

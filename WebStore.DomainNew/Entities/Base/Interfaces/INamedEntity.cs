@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebStore.DomainNew.Entities.Base.Interfaces
+namespace WebStore.Domain.Entities.Base.Interfaces
 {
     public interface INamedEntity : IBaseEntity
     {

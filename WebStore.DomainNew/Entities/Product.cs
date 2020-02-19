@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using WebStore.DomainNew.Entities.Base;
-using WebStore.DomainNew.Entities.Base.Interfaces;
+using WebStore.Domain.Entities.Base;
+using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.DomainNew.Entities
+namespace WebStore.Domain.Entities
 {
     [Table("Products")]
     public class Product : NamedEntity, IOrderedEntity
@@ -14,6 +14,7 @@ namespace WebStore.DomainNew.Entities
         public int CategoryId { get; set; }
         public int? BrandId { get; set; }
         public string ImageUrl { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         public string SerialNumber { get; set; }
 

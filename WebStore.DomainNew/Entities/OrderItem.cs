@@ -1,6 +1,6 @@
-﻿using WebStore.DomainNew.Entities.Base;
+﻿using WebStore.Domain.Entities.Base;
 
-namespace WebStore.DomainNew.Entities
+namespace WebStore.Domain.Entities
 {
     public class OrderItem : BaseEntity
     {

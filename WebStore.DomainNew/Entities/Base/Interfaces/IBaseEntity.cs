@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.DomainNew.Entities.Base.Interfaces
+namespace WebStore.Domain.Entities.Base.Interfaces
 {
     public interface IBaseEntity
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using WebStore.DomainNew.Entities.Base;
-using WebStore.DomainNew.Entities.Base.Interfaces;
+using WebStore.Domain.Entities.Base;
+using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.DomainNew.Entities
+namespace WebStore.Domain.Entities
 {
     [Table("Categories")]
     public class Category : NamedEntity, IOrderedEntity

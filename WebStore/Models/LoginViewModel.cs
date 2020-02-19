@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using WebStore.DomainNew.Entities.Base.Interfaces;
+using WebStore.Domain.Entities.Base.Interfaces;
 
 namespace WebStore.Models
 {

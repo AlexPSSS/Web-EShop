@@ -1,5 +1,5 @@
 ﻿using System;
-using WebStore.DomainNew.Entities.Base.Interfaces;
+using WebStore.Domain.Entities.Base.Interfaces;
 
 namespace WebStore.Models
 {

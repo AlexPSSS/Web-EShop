@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebStore.DomainNew.Entities
+namespace WebStore.Domain.Entities
 {
     public class User : IdentityUser
     {

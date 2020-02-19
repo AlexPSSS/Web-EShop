@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using WebStore.DomainNew.Entities.Base;
+using WebStore.Domain.Entities.Base;
 
-namespace WebStore.DomainNew.Entities
+namespace WebStore.Domain.Entities
 {
     public class Order : NamedEntity
     {
