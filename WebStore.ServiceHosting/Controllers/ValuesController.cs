@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebStore.ServiceHosting.Controllers
 {
     //[Route("[controller]")]
-    //[Route("api/[controller]")]
-    [Route("api/values")]
+    [Route("api/[controller]")]
+    //[Route("api/values")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -14,7 +14,7 @@ namespace WebStore.ServiceHosting.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return Enumerable.Range(1, 22).Select(i => $"value{i}").ToArray();
+            return Enumerable.Range(1, 7).Select(i => $"value{i}").ToArray();
         }
 
         // GET api/values/5
