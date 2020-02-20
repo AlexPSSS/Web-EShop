@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebSore.Interfaces.Api;
 using WebSore.Interfaces.Services;
+using WebStore.Clients.Values;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
@@ -52,6 +54,7 @@ namespace WebStore
             services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IOrdersService, SqlOrdersService>();
 
+            services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<WebStoreContext>()
