@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebSore.Interfaces.Services;
 using WebStore.DAL;
+using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Services.Product
 {
@@ -21,27 +23,21 @@ namespace WebStore.Services.Product
             _userManager = userManager;
         }
 
-        public IEnumerable<Order> GetUserOrders(string userName)
-        {
-            return _context
-                .Orders
-                .Include("User")
-                .Include(x => x.OrderItems)
-                .Where(x => x.User.UserName == userName)
-                .ToList();
-        }
+        public IEnumerable<OrderDTO> GetUserOrders(string UserName) => _context.Orders
+            .Include(order => order.User)
+            .Include(order => order.OrderItems)
+            .Where(order => order.User.UserName == UserName)
+            .ToArray()
+            .Select(o => o.ToDTO());
 
-        public Order GetOrderById(int id)
-        {
-            return _context
-                .Orders
-                .Include("User")
-                .Include(x => x.OrderItems)
-                .FirstOrDefault(x => x.Id == id)
-                ;
-        }
+        public OrderDTO GetOrderById(int id) =>
+            _context.Orders
+            .Include("User")
+            .Include(order => order.OrderItems)
+            .FirstOrDefault(order => order.Id == id)
+            .ToDTO();
 
-        public Order CreateOrder(OrderViewModel orderModel, CartViewModel transformCart, string userName)
+        public OrderDTO CreateOrder(OrderViewModel orderModel, string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
@@ -58,7 +54,7 @@ namespace WebStore.Services.Product
 
                 _context.Orders.Add(order);
 
-                foreach (var item in transformCart.Items)
+                foreach (var item in orderModel.Items)
                 {
                     var productVm = item.Key;
                     var product = _context.Products.FirstOrDefault(p => p.Id.Equals(productVm.Id));
@@ -80,7 +76,7 @@ namespace WebStore.Services.Product
                 _context.SaveChanges();
                 transaction.Commit();
 
-                return order;
+                return order.ToDTO();
             }
         }
     }

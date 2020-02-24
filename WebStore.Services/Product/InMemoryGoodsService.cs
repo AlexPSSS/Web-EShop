@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebSore.Interfaces.Services;
 using WebStore.Domain.Models;
@@ -41,24 +42,29 @@ namespace WebStore.Services.Product
             return _goods.FirstOrDefault(e => e.Id.Equals(id));
         }
 
-        public void Commit()
-        {
-            // ничего не делаем
-        }
-
-        public void AddNew(GoodsView model)
+        public void Add(GoodsView model)
         {
             model.Id = ((_goods.Count > 0)?_goods.Max(e => e.Id) : 0) + 1;
             _goods.Add(model);
         }
 
-        public void Delete(int id)
+        public GoodsView Edit(int id, GoodsView good)
+        {
+            if (good is null)
+                throw new ArgumentNullException(nameof(good));
+
+            var db_good = GetById(id);
+            if (db_good is null) return null;
+
+            return db_good;
+        }
+
+        public bool Delete(int id)
         {
             var good = GetById(id);
-            if (good != null)
-            {
-                _goods.Remove(good);
-            }
+            return good != null && _goods.Remove(good);
+
         }
+        public void SaveChanges() { }
     }
 }

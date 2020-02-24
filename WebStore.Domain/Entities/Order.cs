@@ -14,6 +14,6 @@ namespace WebStore.Domain.Entities
         public DateTime Date { get; set; }
 
         public virtual User User { get; set; } // внешний ключ в БД
-        public virtual Collection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

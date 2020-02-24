@@ -11,4 +11,5 @@ namespace WebStore.Domain
         public const string Orders = "api/orders";
 
         public const string MediaType = "application/json";
+    }
 }
