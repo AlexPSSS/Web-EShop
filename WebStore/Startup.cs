@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebSore.Interfaces.Api;
 using WebSore.Interfaces.Services;
+using WebStore.Clients.Employees;
 using WebStore.Clients.Values;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
@@ -44,9 +45,11 @@ namespace WebStore
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
+            //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
             //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
             //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
+
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
 
             //services.AddSingleton<IProductService, InMemoryProductService>();

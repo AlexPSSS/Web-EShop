@@ -21,20 +21,27 @@ namespace WebSore.Interfaces.Services
         T GetById(int id);
 
         /// <summary>
-        /// Сохранить изменения
-        /// </summary>
-        void Commit();
-
-        /// <summary>
         /// Добавить нового
         /// </summary>
         /// <param name="model"></param>
-        void AddNew(T model);
+        void Add(T model);
+
+        /// <summary>
+        /// Редактирование сотрудника по id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns></returns>
+        T Edit(int id, T model);
 
         /// <summary>
         /// Удалить
         /// </summary>
         /// <param name="id"></param>
-        void Delete(int id);
+        bool Delete(int id);
+
+        /// <summary>
+        /// Сохранить изменения
+        /// </summary>
+        void SaveChanges();
     }
 }

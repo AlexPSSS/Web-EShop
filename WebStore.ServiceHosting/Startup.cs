@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebSore.Interfaces.Services;
+using WebStore.Domain.Models;
+using WebStore.Services.Product;
 
 namespace WebStore.ServiceHosting
 {
@@ -24,6 +27,8 @@ namespace WebStore.ServiceHosting
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
