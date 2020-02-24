@@ -93,9 +93,9 @@ namespace WebStore.Controllers
             }
             else // иначе добавляем модель в список
             {
-                _entityListService.AddNew(model);
+                _entityListService.Add(model);
             }
-            _entityListService.Commit(); // станет актуальным позднее (когда добавим БД)
+            _entityListService.SaveChanges(); // станет актуальным позднее (когда добавим БД)
 
             return RedirectToAction(nameof(Index));
         }

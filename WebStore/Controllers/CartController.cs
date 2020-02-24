@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebSore.Interfaces.Services;
+using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Models;
 
 namespace WebStore.Controllers
@@ -56,25 +57,33 @@ namespace WebStore.Controllers
 
         /// создание заказа
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult CheckOut(OrderViewModel model)
+        public IActionResult CheckOut(OrderViewModel Model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(nameof(Details), new OrderDetailsViewModel
+                {
+                    CartViewModel = _cartService.TransformCart(),
+                    OrderViewModel = Model
+                });
+
+            var create_order_model = new CreateOrderModel
             {
-                var orderResult = _ordersService
-                    .CreateOrder(model, _cartService.TransformCart(), User.Identity.Name);
-
-                _cartService.RemoveAll();
-
-                return RedirectToAction("OrderConfirmed", new { id = orderResult.Id });
-            }
-
-            var detailsModel = new OrderDetailsViewModel()
-            {
-                CartViewModel = _cartService.TransformCart(),
-                OrderViewModel = model
+                OrderViewModel = Model,
+                OrderItems = _cartService.TransformCart().Items
+                   .Select(item => new OrderItemDTO
+                   {
+                       Id = item.Key.Id,
+                       Price = item.Key.Price,
+                       Quantity = item.Value
+                   })
+                   .ToList()
             };
 
-            return View("Details", detailsModel);
+            var order = _ordersService.CreateOrder(create_order_model, User.Identity.Name);
+
+            _cartService.RemoveAll();
+
+            return RedirectToAction("OrderConfirmed", new { id = order.Id });
         }
 
         public IActionResult OrderConfirmed(int id)

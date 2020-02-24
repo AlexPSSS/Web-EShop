@@ -25,44 +25,80 @@ namespace WebStore.ViewComponents
             return View(categories);
         }
 
-        private List<CategoryViewModel> GetCategories()
+        //private List<CategoryViewModel> GetCategories()
+        //{
+        //    var categories = _productService.GetCategories();
+
+        //    var parentSections = categories.Where(p => !p.ParentId.HasValue).ToArray();
+        //    var parentCategories = new List<CategoryViewModel>();
+        //    // получим и заполним родительские категории
+        //    foreach (var parentCategory in parentSections)
+        //    {
+        //        parentCategories.Add(new CategoryViewModel()
+        //        {
+        //            Id = parentCategory.Id,
+        //            Name = parentCategory.Name,
+        //            Order = parentCategory.Order,
+        //            ParentCategory = null
+        //        });
+        //    }
+
+        //    // получим и заполним дочерние категории
+        //    foreach (var CategoryViewModel in parentCategories)
+        //    {
+        //        var childCategories = categories.Where(c => c.ParentId == CategoryViewModel.Id);
+        //        foreach (var childCategory in childCategories)
+        //        {
+        //            CategoryViewModel.ChildCategories.Add(new CategoryViewModel()
+        //            {
+        //                Id = childCategory.Id,
+        //                Name = childCategory.Name,
+        //                Order = childCategory.Order,
+        //                ParentCategory = CategoryViewModel
+        //            });
+        //        }
+        //        CategoryViewModel.ChildCategories = CategoryViewModel.ChildCategories.OrderBy(c => c.Order).ToList();
+        //    }
+
+        //    parentCategories = parentCategories.OrderBy(c => c.Order).ToList();
+        //    return parentCategories;
+
+        //}
+
+        private IEnumerable<CategoryViewModel> GetCategories()
         {
             var categories = _productService.GetCategories();
 
-            var parentSections = categories.Where(p => !p.ParentId.HasValue).ToArray();
-            var parentCategories = new List<CategoryViewModel>();
-            // получим и заполним родительские категории
-            foreach (var parentCategory in parentSections)
+            var parent_categories = categories.Where(section => section.ParentId is null).ToArray();
+
+            var parent_categories_views = parent_categories
+               .Select(parent_category => new CategoryViewModel
+               {
+                   Id = parent_category.Id,
+                   Name = parent_category.Name,
+                   Order = parent_category.Order
+               })
+               .ToList();
+
+            foreach (var parent_category_view in parent_categories_views)
             {
-                parentCategories.Add(new CategoryViewModel()
-                {
-                    Id = parentCategory.Id,
-                    Name = parentCategory.Name,
-                    Order = parentCategory.Order,
-                    ParentCategory = null
-                });
+                var childs = categories.Where(category => category.ParentId == parent_category_view.Id);
+                foreach (var child_category in childs)
+                    parent_category_view.ChildCategories.Add(
+                        new CategoryViewModel
+                        {
+                            Id = child_category.Id,
+                            Name = child_category.Name,
+                            Order = child_category.Order,
+                            ParentCategory = parent_category_view
+                        });
+                parent_category_view.ChildCategories.Sort((a, b) => Comparer<int>.Default.Compare(a.Order, b.Order));
             }
 
-            // получим и заполним дочерние категории
-            foreach (var CategoryViewModel in parentCategories)
-            {
-                var childCategories = categories.Where(c => c.ParentId == CategoryViewModel.Id);
-                foreach (var childCategory in childCategories)
-                {
-                    CategoryViewModel.ChildCategories.Add(new CategoryViewModel()
-                    {
-                        Id = childCategory.Id,
-                        Name = childCategory.Name,
-                        Order = childCategory.Order,
-                        ParentCategory = CategoryViewModel
-                    });
-                }
-                CategoryViewModel.ChildCategories = CategoryViewModel.ChildCategories.OrderBy(c => c.Order).ToList();
-            }
-
-            parentCategories = parentCategories.OrderBy(c => c.Order).ToList();
-            return parentCategories;
-
+            parent_categories_views.Sort((a, b) => Comparer<int>.Default.Compare(a.Order, b.Order));
+            return parent_categories_views;
         }
+
+
     }
 }

@@ -3,8 +3,10 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebSore.Interfaces.Services;
 using WebStore.DAL;
+using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Services.Product
 {
@@ -27,7 +29,7 @@ namespace WebStore.Services.Product
             return _context.Brands.ToList();
         }
 
-        public IEnumerable<Domain.Entities.Product> GetProducts(ProductFilter filter)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
         {
             var query = _context.Products
                 .Include(p => p.Category)
@@ -38,7 +40,8 @@ namespace WebStore.Services.Product
             if (filter.CategoryId.HasValue)
                 query = query.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
 
-            return query.ToList();
+            return query
+                .Select(p => p.ToDTO());
         }
 
         /// <summary>
@@ -46,12 +49,12 @@ namespace WebStore.Services.Product
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Сущность Product, если нашел, иначе null</returns>
-        public Domain.Entities.Product GetProductById(int id)
+        public ProductDTO GetProductById(int id)
         {
             return _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Brand)
-                .FirstOrDefault(p => p.Id.Equals(id));
+               .Include(p => p.Brand)
+               .Include(p => p.Category)
+               .FirstOrDefault(p => p.Id == id).ToDTO();
         }
 
     }

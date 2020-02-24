@@ -70,9 +70,9 @@ namespace WebStore.Controllers
             }
             else // иначе добавляем модель в список
             {
-                _goodsService.AddNew(model);
+                _goodsService.Add(model);
             }
-            _goodsService.Commit(); // станет актуальным позднее (когда добавим БД)
+            _goodsService.SaveChanges(); // станет актуальным позднее (когда добавим БД)
 
             return RedirectToAction(nameof(Index));
         }
