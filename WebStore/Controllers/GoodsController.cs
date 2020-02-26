@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebSore.Interfaces.Services;
+using WebStore.Domain.Models;
 
 namespace WebStore.Controllers
 {
@@ -73,9 +70,9 @@ namespace WebStore.Controllers
             }
             else // иначе добавляем модель в список
             {
-                _goodsService.AddNew(model);
+                _goodsService.Add(model);
             }
-            _goodsService.Commit(); // станет актуальным позднее (когда добавим БД)
+            _goodsService.SaveChanges(); // станет актуальным позднее (когда добавим БД)
 
             return RedirectToAction(nameof(Index));
         }

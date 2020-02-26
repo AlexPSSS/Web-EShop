@@ -8,12 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebSore.Interfaces.Api;
+using WebSore.Interfaces.Services;
+using WebStore.Clients.Employees;
+using WebStore.Clients.Orders;
+using WebStore.Clients.Products;
+using WebStore.Clients.Values;
 using WebStore.DAL;
-using WebStore.DomainNew.Entities;
+using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure;
-using WebStore.Infrastructure.Implementations;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Services.Product;
 
 namespace WebStore
 {
@@ -42,16 +47,20 @@ namespace WebStore
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
+            //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
             //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
             //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
+
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
 
             //services.AddSingleton<IProductService, InMemoryProductService>();
             // SQL now!
-            services.AddScoped<IProductService, SqlProductService>();
-            services.AddScoped<IOrdersService, SqlOrdersService>();
+            services.AddScoped<IProductService, ProductsClient>();
+            //services.AddScoped<IOrdersService, SqlOrdersService>();
+            services.AddScoped<IOrdersService, OrdersClient>();
 
+            services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<WebStoreContext>()

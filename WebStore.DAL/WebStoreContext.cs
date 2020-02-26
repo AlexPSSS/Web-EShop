@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebStore.DomainNew.Entities;
+using WebStore.Domain.Entities;
 
 namespace WebStore.DAL
 {

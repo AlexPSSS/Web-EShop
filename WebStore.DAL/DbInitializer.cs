@@ -6,7 +6,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebStore.DomainNew.Entities;
+using WebStore.Domain.Entities;
 
 namespace WebStore.DAL
 {

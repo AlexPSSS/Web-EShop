@@ -34,9 +34,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <!-- <a href="index.html"><img src="~/images/home/logo.png" alt="" /></a> -->
                         <a asp-controller="Home" asp-action="Index"><img src="~/images/home/logo.png" alt="" /></a>
-
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -113,11 +111,18 @@
                                 </ul>
                             </li>
                             <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="#">Test<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a asp-controller="WebAPITest" asp-action="Index">Test Web-API</a></li>
+                                </ul>
+                            </li>
+
                             @*
-                            <li><a asp-controller="Home" asp-action="NotFound404">404</a></li>
-                            <li><a asp-controller="Employee" asp-action="Index">Employees</a></li>
-                                <li><a asp-controller="Goods" asp-action="Index">Goods</a></li>
-                                *@
+        <li><a asp-controller="Home" asp-action="NotFound404">404</a></li>
+            <li><a asp-controller="Goods" asp-action="Index">Goods</a></li>
+                            *@
+                            <li><a asp-controller="Employee" asp-action="Index">Сотрудники</a></li>
                         </ul>
                     </div>
                 </div>
