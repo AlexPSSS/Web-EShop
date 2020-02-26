@@ -37,16 +37,16 @@ namespace WebStore
         {
             services.AddMvc(options =>
             {
-                options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
-                //альтернативный вариант подключения
-                //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
+                options.Filters.Add(typeof(SimpleActionFilter)); // РїРѕРґРєР»СЋС‡РµРЅРёРµ РїРѕ С‚РёРїСѓ
+                //Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ РІР°СЂРёР°РЅС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+                //options.Filters.Add(new SimpleActionFilter()); // РїРѕРґРєР»СЋС‡РµРЅРёРµ РїРѕ РѕР±СЉРµРєС‚Сѓ
 
             });
 
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-            // Добавляем разрешение зависимости
+            // Р”РѕР±Р°РІР»СЏРµРј СЂР°Р·СЂРµС€РµРЅРёРµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё
             //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
             //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
             //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
@@ -87,7 +87,7 @@ namespace WebStore
             );
 
             // 4FU
-            //services.ConfigureApplicationCookie(options => // необязательно
+            //services.ConfigureApplicationCookie(options => // РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ
             //{
             //    // Cookie settings
             //    options.Cookie.HttpOnly = true;
@@ -145,13 +145,13 @@ namespace WebStore
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
 
-                // Маршрут по умолчанию состоит из трёх частей разделённых “/”
-                // Первой частью указывается имя контроллера,
-                // второй - имя действия (метода) в контроллере,
-                // третей - опциональный параметр с именем “id”
-                // Если часть не указана - используются значения по умолчанию:
-                // для контроллера имя “Goods”,
-                // для действия - “Index”
+                // РњР°СЂС€СЂСѓС‚ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРѕСЃС‚РѕРёС‚ РёР· С‚СЂС‘С… С‡Р°СЃС‚РµР№ СЂР°Р·РґРµР»С‘РЅРЅС‹С… вЂњ/вЂќ
+                // РџРµСЂРІРѕР№ С‡Р°СЃС‚СЊСЋ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РёРјСЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°,
+                // РІС‚РѕСЂРѕР№ - РёРјСЏ РґРµР№СЃС‚РІРёСЏ (РјРµС‚РѕРґР°) РІ РєРѕРЅС‚СЂРѕР»Р»РµСЂРµ,
+                // С‚СЂРµС‚РµР№ - РѕРїС†РёРѕРЅР°Р»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ СЃ РёРјРµРЅРµРј вЂњidвЂќ
+                // Р•СЃР»Рё С‡Р°СЃС‚СЊ РЅРµ СѓРєР°Р·Р°РЅР° - РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:
+                // РґР»СЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР° РёРјСЏ вЂњGoodsвЂќ,
+                // РґР»СЏ РґРµР№СЃС‚РІРёСЏ - вЂњIndexвЂќ
 
                 endpoints.Map("/hello", async context =>
                 {
@@ -161,7 +161,7 @@ namespace WebStore
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Даже не знаю, что Вам сказать...");
+                await context.Response.WriteAsync("Р”Р°Р¶Рµ РЅРµ Р·РЅР°СЋ, С‡С‚Рѕ Р’Р°Рј СЃРєР°Р·Р°С‚СЊ...");
             });
         }
 
