@@ -11,5 +11,12 @@ namespace WebStore.Domain
         public const string Orders = "api/orders";
 
         public const string MediaTypeJSON = "application/json";
+
+        public static class Identity
+        {
+            public const string Users = "api/users";
+            public const string Roles = "api/roles";
+        }
+
     }
 }

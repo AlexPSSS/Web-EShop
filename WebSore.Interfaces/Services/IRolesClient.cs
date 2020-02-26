@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WebStore.Domain.Entities.Identity;
 
 namespace WebSore.Interfaces.Services
 {
