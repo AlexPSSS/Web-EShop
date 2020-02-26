@@ -10,6 +10,6 @@ namespace WebStore.Domain
         public const string Products = "api/products";
         public const string Orders = "api/orders";
 
-        public const string MediaType = "application/json";
+        public const string MediaTypeJSON = "application/json";
     }
 }

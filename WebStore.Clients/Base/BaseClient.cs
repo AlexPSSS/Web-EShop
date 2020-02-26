@@ -27,7 +27,7 @@ namespace WebStore.Clients.Base
 
             var headers = _Client.DefaultRequestHeaders.Accept;
             headers.Clear();
-            headers.Add(new MediaTypeWithQualityHeaderValue(WebAPI.MediaType));
+            headers.Add(new MediaTypeWithQualityHeaderValue(WebAPI.MediaTypeJSON));
         }
 
         protected T Get<T>(string url) where T : new() => GetAsync<T>(url).Result;
