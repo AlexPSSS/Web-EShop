@@ -11,11 +11,13 @@ using Microsoft.Extensions.Hosting;
 using WebSore.Interfaces.Api;
 using WebSore.Interfaces.Services;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Values;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
 using WebStore.Infrastructure;
 using WebStore.Services.Product;
@@ -43,8 +45,9 @@ namespace WebStore
 
             });
 
-            services.AddDbContext<WebStoreContext>(options => options
-                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+            // After Identity Store added SQL not needed
+            //services.AddDbContext<WebStoreContext>(options => options
+            //    .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             // Добавляем разрешение зависимости
             //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
@@ -63,8 +66,21 @@ namespace WebStore
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<WebStoreContext>()
+                //.AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
+
+            #region Custom implementation identity storages
+            services.AddTransient<IUserStore<User>, UsersClient>();
+            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
+            services.AddTransient<IUserEmailStore<User>, UsersClient>();
+            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
+            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
+            services.AddTransient<IUserLockoutStore<User>, UsersClient>();
+            services.AddTransient<IUserClaimStore<User>, UsersClient>();
+            services.AddTransient<IUserLoginStore<User>, UsersClient>();
+
+            services.AddTransient<IRoleStore<Role>, RolesClient>();
+            #endregion
 
             services.Configure<IdentityOptions>(options =>
                 {
