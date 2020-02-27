@@ -53,9 +53,12 @@ namespace WebStore.ServiceHosting
 
             services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IOrdersService, SqlOrdersService>();
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CookieCartService>();
+
+            services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

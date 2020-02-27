@@ -21,26 +21,19 @@ namespace WebStore.Controllers
         public IActionResult Shop(int? categoryId, int? brandId, [FromServices] IMapper Mapper)
         {
             // получаем список отфильтрованных продуктов
-            var products = _productService.GetProducts(
-                new ProductFilter { BrandId = brandId, CategoryId = categoryId });
+            var products = _productService.GetProducts(new ProductFilter 
+            { 
+                BrandId = brandId, 
+                CategoryId = categoryId 
+            });
 
             // сконвертируем в CatalogViewModel
-            var model = new CatalogViewModel()
+            return View( new CatalogViewModel()
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
                 Products = products.Select(Mapper.Map<ProductViewModel>).OrderBy(p => p.Order)
-                //Products = products.Select(p => new ProductViewModel()
-                //{
-                //    Id = p.Id,
-                //    ImageUrl = p.ImageUrl,
-                //    Name = p.Name,
-                //    Order = p.Order,
-                //    Price = p.Price
-                //}).OrderBy(p => p.Order).ToList()
-            };
-
-            return View(model);
+            });
         }
 
         [Route("{id}")]
