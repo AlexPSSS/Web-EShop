@@ -19,6 +19,8 @@ using WebStore.Domain.Models;
 using WebStore.Services.Product;
 using WebStore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
+using WebStore.Domain;
 
 namespace WebStore.ServiceHosting
 {
@@ -42,6 +44,13 @@ namespace WebStore.ServiceHosting
                 .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = WebAPI.APIName, Version = "v1" });
+                opt.IncludeXmlComments("WebStore.ServiceHosting.xml");
+                opt.IncludeXmlComments(@"..\WebStore.Domain\WebStore.Domain.xml");
+            });
+
             services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IOrdersService, SqlOrdersService>();
 
@@ -56,8 +65,16 @@ namespace WebStore.ServiceHosting
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", WebAPI.APIName);
+                opt.RoutePrefix = string.Empty;
+            });
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
