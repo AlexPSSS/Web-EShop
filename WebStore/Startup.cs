@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +21,7 @@ using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
 using WebStore.Infrastructure;
+using WebStore.Infrastructure.AutoMapper;
 using WebStore.Services.Product;
 
 namespace WebStore
@@ -42,30 +44,22 @@ namespace WebStore
                 options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
                 //альтернативный вариант подключения
                 //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
-
             });
 
-            //services.AddDbContext<WebStoreContext>(options => options
-            //    .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper(opt =>
+            {
+                opt.AddProfile<ViewModelMapping>();
+                opt.AddProfile<DTOMapping>();
+            }, typeof(Startup)/*.Assembly*/);
 
             // Добавляем разрешение зависимости
-            //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
-            //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
-            //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
             services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
-
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
-
-            //services.AddSingleton<IProductService, InMemoryProductService>();
-            // SQL now!
             services.AddScoped<IProductService, ProductsClient>();
-            //services.AddScoped<IOrdersService, SqlOrdersService>();
             services.AddScoped<IOrdersService, OrdersClient>();
-
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddIdentity<User, IdentityRole>()
-                //.AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
             #region Custom implementation identity storages
@@ -145,11 +139,6 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
-
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

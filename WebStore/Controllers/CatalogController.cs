@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebSore.Interfaces.Services;
 using WebStore.Domain.Filters;
@@ -17,7 +18,7 @@ namespace WebStore.Controllers
         }
 
         [SimpleActionFilter]
-        public IActionResult Shop(int? categoryId, int? brandId)
+        public IActionResult Shop(int? categoryId, int? brandId, [FromServices] IMapper Mapper)
         {
             // получаем список отфильтрованных продуктов
             var products = _productService.GetProducts(
@@ -28,14 +29,15 @@ namespace WebStore.Controllers
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.Select(p => new ProductViewModel()
-                {
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    Order = p.Order,
-                    Price = p.Price
-                }).OrderBy(p => p.Order).ToList()
+                Products = products.Select(Mapper.Map<ProductViewModel>).OrderBy(p => p.Order)
+                //Products = products.Select(p => new ProductViewModel()
+                //{
+                //    Id = p.Id,
+                //    ImageUrl = p.ImageUrl,
+                //    Name = p.Name,
+                //    Order = p.Order,
+                //    Price = p.Price
+                //}).OrderBy(p => p.Order).ToList()
             };
 
             return View(model);
