@@ -23,6 +23,7 @@ using Microsoft.OpenApi.Models;
 using WebStore.Domain;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Data;
+using WebStore.Logger;
 
 namespace WebStore.ServiceHosting
 {
@@ -65,9 +66,11 @@ namespace WebStore.ServiceHosting
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db, ILoggerFactory log)
         {
             db.InitializeAsync().Wait();
+
+            log.AddLog4Net();
 
             if (env.IsDevelopment())
             {
