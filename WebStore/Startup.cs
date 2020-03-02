@@ -21,6 +21,7 @@ using WebStore.Domain.Models;
 using WebStore.Infrastructure.AutoMapper;
 using WebStore.Services.Product;
 using WebStore.Logger;
+using WebStore.Infrastructure.Middleware;
 
 namespace WebStore
 {
@@ -72,7 +73,7 @@ namespace WebStore
             services.AddTransient<IUserClaimStore<User>, UsersClient>();
             services.AddTransient<IUserLoginStore<User>, UsersClient>();
 
-            var r = services.AddTransient<IRoleStore<Role>, RolesClient>();
+            services.AddTransient<IRoleStore<Role>, RolesClient>();
             #endregion
 
             services.Configure<IdentityOptions>(options =>
@@ -133,6 +134,8 @@ namespace WebStore
 
             //var helloMessage = _configuration["CustomHelloWorld"];
             //var logLevel = _configuration["Logging:LogLevel:Microsoft"];
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
 
             app.UseRouting();
 
