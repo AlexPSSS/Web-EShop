@@ -70,7 +70,7 @@ namespace WebStore
             services.AddTransient<IUserClaimStore<User>, UsersClient>();
             services.AddTransient<IUserLoginStore<User>, UsersClient>();
 
-            services.AddTransient<IRoleStore<Role>, RolesClient>();
+            var r = services.AddTransient<IRoleStore<Role>, RolesClient>();
             #endregion
 
             services.Configure<IdentityOptions>(options =>

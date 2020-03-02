@@ -32,11 +32,13 @@ namespace WebStore.Data
             //}
 
             //await db.EnsureCreatedAsync();
-            await db.MigrateAsync(); // Автоматическое создание и миграция базы до последней версии
+            //await db.MigrateAsync(); // Автоматическое создание и миграция базы до последней версии
 
             await IdentityInitializeAsync();
 
             if (await _db.Products.AnyAsync()) return;
+
+            return;
 
             using (var transaction = await db.BeginTransactionAsync())
             {

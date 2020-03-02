@@ -21,6 +21,8 @@ using WebStore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using WebStore.Domain;
+using WebStore.Domain.Entities.Identity;
+using WebStore.Data;
 
 namespace WebStore.ServiceHosting
 {
@@ -32,7 +34,6 @@ namespace WebStore.ServiceHosting
             Configuration = configuration;
         }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -40,7 +41,10 @@ namespace WebStore.ServiceHosting
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddTransient<WebStoreContextInitializer>();
+
+
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
@@ -61,8 +65,10 @@ namespace WebStore.ServiceHosting
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db)
         {
+            db.InitializeAsync().Wait();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
