@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.DAL
 {
@@ -466,10 +467,10 @@ namespace WebStore.DAL
         public static void InitializeUsers(IServiceProvider services)
         {
             var roleManager = services.GetService<RoleManager<IdentityRole>>();
-            EnsureRole(roleManager, "User");
-            EnsureRole(roleManager, "Admin");
+            EnsureRole(roleManager, Role.Administrator);
+            EnsureRole(roleManager, Role.User);
 
-            EnsureRoleToUser(services, "Admin", "Admin", "Admin@123");
+            EnsureRoleToUser(services, User.Administrator, Role.Administrator, User.AdminPasswordDefault);
         }
 
         private static void EnsureRoleToUser(IServiceProvider services, string userName, string roleName, string password)

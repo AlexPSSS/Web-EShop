@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.Infrastructure;
+using Microsoft.Extensions.Logging;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
-        [SimpleActionFilter]
+        private readonly ILogger<HomeController> _Logger;
+
+        public HomeController(ILogger<HomeController> Logger) => _Logger = Logger;
+
+        //[SimpleActionFilter]
         public IActionResult Index()
         {
             //throw new ApplicationException("Ошибочка вышла...");
@@ -22,8 +23,11 @@ namespace WebStore.Controllers
             //return RedirectToAction("Blog", "Home");
             //return new RedirectResult("https://google.com");
             //return StatusCode(500);
+            _Logger.LogInformation("Запрос главной страницы!");
             return View();
         }
+        public IActionResult ThrowError(string id) => throw new ApplicationException(id);
+
         public IActionResult Blog()
         {
             return View();

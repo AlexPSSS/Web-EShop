@@ -1,24 +1,27 @@
 using System;
-using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebSore.Interfaces.Api;
 using WebSore.Interfaces.Services;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Values;
-using WebStore.DAL;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
-using WebStore.Infrastructure;
+using WebStore.Infrastructure.AutoMapper;
 using WebStore.Services.Product;
+using WebStore.Logger;
+using WebStore.Infrastructure.Middleware;
 
 namespace WebStore
 {
@@ -35,42 +38,49 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(typeof(SimpleActionFilter)); // РїРѕРґРєР»СЋС‡РµРЅРёРµ РїРѕ С‚РёРїСѓ
+            //    //Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ РІР°СЂРёР°РЅС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+            //    //options.Filters.Add(new SimpleActionFilter()); // РїРѕРґРєР»СЋС‡РµРЅРёРµ РїРѕ РѕР±СЉРµРєС‚Сѓ
+            //});
+
+            services.AddMvc();
+
+            services.AddAutoMapper(opt =>
             {
-                options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
-                //альтернативный вариант подключения
-                //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
+                opt.AddProfile<ViewModelMapping>();
+                opt.AddProfile<DTOMapping>();
+            }, typeof(Startup)/*.Assembly*/);
 
-            });
-
-            services.AddDbContext<WebStoreContext>(options => options
-                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
-
-            // Добавляем разрешение зависимости
-            //services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
-            //services.AddTransient<IEntityListService, InMemoryEmployeesService>();
-            //services.AddScoped<IEntityListService, InMemoryEmployeesService>();
-            services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
-
-            services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
-
-            //services.AddSingleton<IProductService, InMemoryProductService>();
-            // SQL now!
+            // Р”РѕР±Р°РІР»СЏРµРј СЂР°Р·СЂРµС€РµРЅРёРµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё
             services.AddScoped<IProductService, ProductsClient>();
-            //services.AddScoped<IOrdersService, SqlOrdersService>();
             services.AddScoped<IOrdersService, OrdersClient>();
 
+            services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
+
+            #region Custom implementation identity storages
+            services.AddTransient<IUserStore<User>, UsersClient>();
+            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
+            services.AddTransient<IUserEmailStore<User>, UsersClient>();
+            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
+            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
+            services.AddTransient<IUserLockoutStore<User>, UsersClient>();
+            services.AddTransient<IUserClaimStore<User>, UsersClient>();
+            services.AddTransient<IUserLoginStore<User>, UsersClient>();
+
+            services.AddTransient<IRoleStore<Role>, RolesClient>();
+            #endregion
 
             services.Configure<IdentityOptions>(options =>
                 {
                     // Password settings
                     options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 5;
+                    options.Password.RequiredLength = 3;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
@@ -82,12 +92,12 @@ namespace WebStore
                     options.Lockout.AllowedForNewUsers = true;
 
                     // User settings
-                    options.User.RequireUniqueEmail = true;
+                    options.User.RequireUniqueEmail = false;
                 }
             );
 
             // 4FU
-            //services.ConfigureApplicationCookie(options => // необязательно
+            //services.ConfigureApplicationCookie(options => // РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ
             //{
             //    // Cookie settings
             //    options.Cookie.HttpOnly = true;
@@ -103,8 +113,10 @@ namespace WebStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -112,16 +124,18 @@ namespace WebStore
 
             app.UseStaticFiles();
 
-            app.UseWelcomePage("/welcome");
+            //app.UseWelcomePage("/welcome");
 
-            app.Map("/index", CustomIndexHandler);
+            //app.Map("/index", CustomIndexHandler);
 
-            app.UseMiddleware<TokenMiddleware>();
+            //app.UseMiddleware<TokenMiddleware>();
 
-            UseSample(app);
+            //UseSample(app);
 
-            var helloMessage = _configuration["CustomHelloWorld"];
-            var logLevel = _configuration["Logging:LogLevel:Microsoft"];
+            //var helloMessage = _configuration["CustomHelloWorld"];
+            //var logLevel = _configuration["Logging:LogLevel:Microsoft"];
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
 
             app.UseRouting();
 
@@ -130,11 +144,6 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
-
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
@@ -145,50 +154,50 @@ namespace WebStore
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
 
-                // Маршрут по умолчанию состоит из трёх частей разделённых “/”
-                // Первой частью указывается имя контроллера,
-                // второй - имя действия (метода) в контроллере,
-                // третей - опциональный параметр с именем “id”
-                // Если часть не указана - используются значения по умолчанию:
-                // для контроллера имя “Goods”,
-                // для действия - “Index”
+                // РњР°СЂС€СЂСѓС‚ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРѕСЃС‚РѕРёС‚ РёР· С‚СЂС‘С… С‡Р°СЃС‚РµР№ СЂР°Р·РґРµР»С‘РЅРЅС‹С… вЂњ/вЂќ
+                // РџРµСЂРІРѕР№ С‡Р°СЃС‚СЊСЋ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РёРјСЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°,
+                // РІС‚РѕСЂРѕР№ - РёРјСЏ РґРµР№СЃС‚РІРёСЏ (РјРµС‚РѕРґР°) РІ РєРѕРЅС‚СЂРѕР»Р»РµСЂРµ,
+                // С‚СЂРµС‚РµР№ - РѕРїС†РёРѕРЅР°Р»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ СЃ РёРјРµРЅРµРј вЂњidвЂќ
+                // Р•СЃР»Рё С‡Р°СЃС‚СЊ РЅРµ СѓРєР°Р·Р°РЅР° - РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:
+                // РґР»СЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂР° РёРјСЏ вЂњGoodsвЂќ,
+                // РґР»СЏ РґРµР№СЃС‚РІРёСЏ - вЂњIndexвЂќ
 
-                endpoints.Map("/hello", async context =>
-                {
-                    await context.Response.WriteAsync(helloMessage);
-                });
+                //endpoints.Map("/hello", async context =>
+                //{
+                //    await context.Response.WriteAsync(helloMessage);
+                //});
             });
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Даже не знаю, что Вам сказать...");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Р”Р°Р¶Рµ РЅРµ Р·РЅР°СЋ, С‡С‚Рѕ Р’Р°Рј СЃРєР°Р·Р°С‚СЊ...");
+            //});
         }
 
-        private void UseSample(IApplicationBuilder app)
-        {
-            app.Use(async (context, next) =>
-            {
-                bool isError = false;
-                // ...
-                if (isError)
-                {
-                    await context.Response
-                        .WriteAsync("Error occured. You're in custom pipeline module...");
-                }
-                else
-                {
-                    await next.Invoke();
-                }
-            });
-        }
+        //private void UseSample(IApplicationBuilder app)
+        //{
+        //    app.Use(async (context, next) =>
+        //    {
+        //        bool isError = false;
+        //        // ...
+        //        if (isError)
+        //        {
+        //            await context.Response
+        //                .WriteAsync("Error occured. You're in custom pipeline module...");
+        //        }
+        //        else
+        //        {
+        //            await next.Invoke();
+        //        }
+        //    });
+        //}
 
-        private void CustomIndexHandler(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("Hello from custom /Index handler");
-            });
-        }
+        //private void CustomIndexHandler(IApplicationBuilder app)
+        //{
+        //    app.Run(async context =>
+        //    {
+        //        await context.Response.WriteAsync("Hello from custom /Index handler");
+        //    });
+        //}
     }
 }
