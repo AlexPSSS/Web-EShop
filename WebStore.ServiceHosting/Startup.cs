@@ -37,12 +37,12 @@ namespace WebStore.ServiceHosting
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
 
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<WebStoreContextInitializer>();
+            //services.AddTransient<WebStoreContextInitializer>();
 
 
             services.AddIdentity<User, Role>()
@@ -64,11 +64,14 @@ namespace WebStore.ServiceHosting
             services.AddScoped<ICartService, CookieCartService>();
 
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db, ILoggerFactory log)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db, ILoggerFactory log)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
-            db.InitializeAsync().Wait();
+            //db.InitializeAsync().Wait();
 
             log.AddLog4Net();
 
