@@ -52,5 +52,14 @@ namespace WebStore.Controllers
         {
             return View();
         }
+        public IActionResult ErrorStatus(string Id)
+        {
+            switch (Id)
+            {
+                default: return Content($"Статусный код {Id}");
+                case "404":
+                    return RedirectToAction(nameof(NotFound404));
+            }
+        }
     }
 }
