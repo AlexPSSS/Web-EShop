@@ -61,7 +61,7 @@ namespace WebStore.ServiceHosting
             services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CartService>();
 
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

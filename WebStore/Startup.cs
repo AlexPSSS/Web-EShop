@@ -38,15 +38,6 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc(options =>
-            //{
-            //    options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
-            //    //альтернативный вариант подключения
-            //    //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
-            //});
-
-            services.AddMvc();
-
             services.AddAutoMapper(opt =>
             {
                 opt.AddProfile<ViewModelMapping>();
@@ -56,6 +47,9 @@ namespace WebStore
             // Добавляем разрешение зависимости
             services.AddScoped<IProductService, ProductsClient>();
             services.AddScoped<IOrdersService, OrdersClient>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
 
             services.AddSingleton<IEntityListService<EmployeeViewModel>, EmployeesClient>();
             services.AddScoped<IValuesService, ValuesClient>();
@@ -108,8 +102,13 @@ namespace WebStore
             //    options.SlidingExpiration = true;
             //});
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
+            //    //альтернативный вариант подключения
+            //    //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
+            //});
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
