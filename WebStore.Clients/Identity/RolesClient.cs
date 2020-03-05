@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Clients.Base;
 using WebStore.Domain;
 using WebStore.Domain.Entities.Identity;

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
 using System.Collections.Generic;
-using WebSore.Interfaces.Api;
+using WebStore.Interfaces.Api;
 using WebStore.Controllers;
 using Assert = Xunit.Assert;
 

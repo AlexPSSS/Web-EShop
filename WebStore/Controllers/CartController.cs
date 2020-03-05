@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using WebSore.Interfaces.Services;
 using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Models;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Controllers
 {
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
-        private readonly IOrdersService _ordersService;
 
-        public CartController(ICartService cartService, IOrdersService ordersService)
+        public CartController(ICartService cartService)
         {
             _cartService = cartService;
-            _ordersService = ordersService;
         }
 
         public IActionResult Details()
@@ -57,7 +52,7 @@ namespace WebStore.Controllers
 
         /// создание заказа
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult CheckOut(OrderViewModel Model)
+        public IActionResult CheckOut(OrderViewModel Model, [FromServices] IOrdersService OrderService)
         {
             if (!ModelState.IsValid)
                 return View(nameof(Details), new OrderDetailsViewModel
@@ -79,7 +74,7 @@ namespace WebStore.Controllers
                    .ToList()
             };
 
-            var order = _ordersService.CreateOrder(create_order_model, User.Identity.Name);
+            var order = OrderService.CreateOrder(create_order_model, User.Identity.Name);
 
             _cartService.RemoveAll();
 

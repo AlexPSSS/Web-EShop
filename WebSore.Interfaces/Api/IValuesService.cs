@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebSore.Interfaces.Api
+namespace WebStore.Interfaces.Api
 {
     public interface IValuesService
     {

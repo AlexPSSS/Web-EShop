@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebSore.Interfaces\WebSore.Interfaces.csproj" />
+    <ProjectReference Include="..\WebSore.Interfaces\WebStore.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 
-namespace WebSore.Interfaces.Services
+namespace WebStore.Interfaces.Services
 {
     public interface IProductService
     {

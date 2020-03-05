@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 using Microsoft.Extensions.Logging;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.Models;
 using WebStore.Services.Product;

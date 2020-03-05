@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
 using WebStore.Domain.Models;
 using WebStore.Infrastructure;

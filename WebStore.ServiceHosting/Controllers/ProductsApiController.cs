@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;

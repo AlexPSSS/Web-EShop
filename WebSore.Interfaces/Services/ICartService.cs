@@ -1,6 +1,6 @@
 ﻿using WebStore.Domain.Models;
 
-namespace WebSore.Interfaces.Services
+namespace WebStore.Interfaces.Services
 {
     public interface ICartService
     {

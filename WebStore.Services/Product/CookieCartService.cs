@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
 using WebStore.Domain.Models;
 

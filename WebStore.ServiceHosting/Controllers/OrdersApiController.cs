@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Orders;
 
