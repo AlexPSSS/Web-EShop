@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-
-
 using Microsoft.Extensions.Logging;
 using WebStore.Interfaces.Services;
 using WebStore.DAL;
@@ -22,7 +15,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using WebStore.Domain;
 using WebStore.Domain.Entities.Identity;
-using WebStore.Data;
 using WebStore.Logger;
 
 namespace WebStore.ServiceHosting
@@ -30,10 +22,8 @@ namespace WebStore.ServiceHosting
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,7 +33,6 @@ namespace WebStore.ServiceHosting
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddTransient<WebStoreContextInitializer>();
-
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<WebStoreContext>()
