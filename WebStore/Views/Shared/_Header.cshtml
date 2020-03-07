@@ -94,7 +94,7 @@
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a is-active-route asp-controller="Home" asp-action="Index">Главная</a></li>
                             <li class="dropdown">
-                                <a is-active-route asp-controller="Catalog" asp-action="Shop">Каталог<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route ignore-action asp-controller="Catalog" asp-action="Shop">Каталог<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a is-active-route asp-controller="Catalog" asp-action="Shop">Весь каталог</a></li>
                                     @*<li><a asp-controller="Catalog" asp-action="ProductDetails">Details</a></li>
@@ -105,7 +105,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a is-active-route asp-controller="Home" asp-action="Blog">Блоги<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route ignore-action asp-controller="Home" asp-action="Blog">Блоги<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a is-active-route asp-controller="Home" asp-action="Blog">Список блогов</a></li>
                                     <li><a is-active-route asp-controller="Home" asp-action="BlogSingle">Блог магазина</a></li>
@@ -113,7 +113,7 @@
                             </li>
                             <li><a is-active-route asp-controller="Home" asp-action="Contact">Контакты</a></li>
                             <li class="dropdown">
-                                <a is-active-route asp-controller="WebAPITest" asp-action="Index">Тестирование Web-API<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route ignore-action asp-controller="WebAPITest" asp-action="Index">Тестирование Web-API<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a is-active-route asp-controller="WebAPITest" asp-action="Index">Тестирование Web-API</a></li>
                                 </ul>
