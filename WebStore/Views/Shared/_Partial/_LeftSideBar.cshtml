@@ -2,7 +2,7 @@
     <div class="left-sidebar">
 
         @*@await Component.InvokeAsync("Cats")*@
-        <vc:cats></vc:cats>
+        <vc:cats category-id="@Context.Request.Query["CategoryId"]" />
 
         <vc:brands></vc:brands>
 

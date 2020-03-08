@@ -899,7 +899,7 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
+  opacity: 0.3;
 }
 
 .single-products:hover .product-overlay {
@@ -2520,4 +2520,6 @@ h2.title {
   color: #FE980F;
 }
 
-
+.panel-body ul li.active, .brands-name ul li.active {
+    text-decoration: underline
+}
