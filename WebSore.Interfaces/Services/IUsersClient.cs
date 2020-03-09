@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WebStore.Domain.Entities;
 
-namespace WebSore.Interfaces.Services
+namespace WebStore.Interfaces.Services
 {
     public interface IUsersClient :
         IUserRoleStore<User>,

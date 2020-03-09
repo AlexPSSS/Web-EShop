@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Clients.Base;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Identity;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;

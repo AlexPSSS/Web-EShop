@@ -3,7 +3,7 @@ using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
 
-namespace WebSore.Interfaces.Services
+namespace WebStore.Interfaces.Services
 {
     public interface IOrdersService
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
 
 namespace WebStore.Areas.Admin.Controllers

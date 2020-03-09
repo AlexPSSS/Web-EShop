@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Entities;

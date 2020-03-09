@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.Clients.Base;
 using WebStore.Domain;
 using WebStore.Domain.Models;

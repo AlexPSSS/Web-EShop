@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 using Microsoft.Extensions.Logging;
-using WebSore.Interfaces.Services;
+using WebStore.Interfaces.Services;
 using WebStore.DAL;
 using WebStore.Domain.Models;
 using WebStore.Services.Product;
@@ -37,12 +37,12 @@ namespace WebStore.ServiceHosting
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
 
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<WebStoreContextInitializer>();
+            //services.AddTransient<WebStoreContextInitializer>();
 
 
             services.AddIdentity<User, Role>()
@@ -61,14 +61,17 @@ namespace WebStore.ServiceHosting
             services.AddSingleton<IEntityListService<EmployeeViewModel>, InMemoryEmployeesService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CartService>();
 
             services.AddSingleton<IEntityListService<GoodsView>, InMemoryGoodsService>();
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db, ILoggerFactory log)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreContextInitializer db, ILoggerFactory log)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
-            db.InitializeAsync().Wait();
+            //db.InitializeAsync().Wait();
 
             log.AddLog4Net();
 

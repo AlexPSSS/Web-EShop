@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebSore.Interfaces.Services
+namespace WebStore.Interfaces.Services
 {
     /// <summary>
     /// Интерфейс для работы с сотрудниками

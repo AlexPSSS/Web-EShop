@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using WebSore.Interfaces.Api;
+using WebStore.Interfaces.Api;
 using WebStore.Clients.Base;
 
 namespace WebStore.Clients.Values
