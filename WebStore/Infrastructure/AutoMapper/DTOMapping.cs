@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WebStore.Domain.DTO.Products;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
 
 namespace WebStore.Infrastructure.AutoMapper
@@ -9,6 +10,7 @@ namespace WebStore.Infrastructure.AutoMapper
         public DTOMapping()
         {
             CreateMap<ProductDTO, ProductViewModel>().ReverseMap();
+            //CreateMap<SectionDTO, Category>().ReverseMap();
         }
     }
 }

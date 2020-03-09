@@ -8,7 +8,11 @@ namespace WebStore.Interfaces.Services
     public interface IProductService
     {
         IEnumerable<Category> GetCategories();
+        SectionDTO GetCategoryById(int id);
+
         IEnumerable<Brand> GetBrands();
+        BrandDTO GetBrandById(int id);
+
         IEnumerable<ProductDTO> GetProducts(ProductFilter filter = null);
 
         /// <summary>
