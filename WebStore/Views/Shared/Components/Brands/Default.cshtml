@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<WebStore.Domain.Models.BrandViewModel>
+﻿@model WebStore.Domain.Models.BrandCompleteViewModel
 
 <h2>Бренды</h2>
 
@@ -6,19 +6,14 @@
     <!--brands_products-->
     <div class="brands-name">
         <ul class="nav nav-pills nav-stacked">
-            @foreach (var brandItem in Model)
+            @foreach (var brandItem in Model.Brands)
             {
                 if (brandItem.Quantity >= 0) // если есть товары бренда
                 {
-                    <li>
-                        <a asp-controller="Catalog"
-                           asp-action="Shop"
-                           asp-route-BrandId="@brandItem.Id">
-                            <span class="pull-right">
-                                (@brandItem.Quantity)
-                            </span>
-                            @brandItem.Name
-                        </a>
+                    <li @(brandItem.Id == Model.CurrentBrandId ? "class=active" : null)>
+                        <a asp-controller="Catalog" 
+                           asp-action="Shop" 
+                           asp-route-BrandId="@brandItem.Id"> <span class="pull-right">(50)</span>@brandItem.Name</a>
                     </li>
                 }
             }
