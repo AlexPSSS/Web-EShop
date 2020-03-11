@@ -26,7 +26,7 @@ namespace WebStore.ServiceHosting.Controllers
         /// <summary>Получение всех разделов каталога товаров</summary>
         /// <returns>Перечисление всех разделов каталога</returns>
         [HttpGet("categories")]
-        public IEnumerable<Category> GetCategories() => _productService.GetCategories();
+        public IEnumerable<SectionDTO> GetCategories() => _productService.GetCategories();
 
         /// <summary>Получение раздела каталога товаров по Id</summary>
         /// <returns>DTO-модель раздела каталога</returns>
@@ -41,7 +41,7 @@ namespace WebStore.ServiceHosting.Controllers
         /// <summary>Получение всех брендов товаров из каталога</summary>
         /// <returns>Перечисление брендов товаров каталога</returns>
         [HttpGet("brands")]
-        public IEnumerable<Brand> GetBrands() => _productService.GetBrands();
+        public IEnumerable<BrandDTO> GetBrands() => _productService.GetBrands();
 
         /// <summary>Получение товаров, удовлетворяющих критерию поиска</summary>
         /// <param name="Filter">Фильтр - критерий поиска товаров в каталоге</param>

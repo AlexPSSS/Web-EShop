@@ -1,13 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using WebStore.Interfaces.Services;
 using WebStore.Clients.Base;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Products;
-using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 
 namespace WebStore.Clients.Products
@@ -16,13 +13,13 @@ namespace WebStore.Clients.Products
     {
         public ProductsClient(IConfiguration config) : base(config, WebAPI.Products) { }
 
-        public IEnumerable<Category> GetCategories() => Get<List<Category>>($"{_ServiceAddress}/categories");
+        public IEnumerable<SectionDTO> GetCategories() => Get<List<SectionDTO>>($"{_ServiceAddress}/categories");
 
         public SectionDTO GetCategoryById(int id) => Get<SectionDTO>($"{_ServiceAddress}/categories/{id}");
 
         public BrandDTO GetBrandById(int id) => Get<BrandDTO>($"{_ServiceAddress}/brands/{id}");
 
-        public IEnumerable<Brand> GetBrands() => Get<List<Brand>>($"{_ServiceAddress}/brands");
+        public IEnumerable<BrandDTO> GetBrands() => Get<List<BrandDTO>>($"{_ServiceAddress}/brands");
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null) =>
             Post(_ServiceAddress, Filter)
