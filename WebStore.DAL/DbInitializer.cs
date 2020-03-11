@@ -12,458 +12,7 @@ namespace WebStore.DAL
 {
     public static class DbInitializer
     {
-        private static void FillTable<T>(WebStoreContext context, List<T> entList, string tableName)
-        {
-            bool commitNeed = true;
-
-            using (var trans = context.Database.BeginTransaction())
-            {
-                switch (tableName)
-                {
-                    case "Products":
-                        context.Products.AddRange((IEnumerable<Product>)entList);
-                        break;
-                    case "Categories":
-                        context.Categories.AddRange((IEnumerable<Category>)entList);
-                        break;
-                    case "Brands":
-                        context.Brands.AddRange((IEnumerable<Brand>)entList);
-                        break;
-                    default:
-                        commitNeed = false;
-                        break;
-                }
-
-                if (commitNeed)
-                {
-                    context.Database.ExecuteSqlCommand(String.Format("SET IDENTITY_INSERT [dbo].[{0}] ON", tableName));
-                    context.SaveChanges();
-                    context.Database.ExecuteSqlCommand(String.Format("SET IDENTITY_INSERT [dbo].[{0}] OFF", tableName));
-                    trans.Commit();
-                }
-            }
-        }
-
-        public static void Initialize(WebStoreContext context)
-        {
-            context.Database.EnsureCreated();
-
-            //IEnumerable<PropertyInfo> dbSetProperties =
-            //    context.GetType()
-            //        .GetProperties()
-            //        .Where(p => p.PropertyType.Name.StartsWith("DbSet"));
-
-            List<string> dbSetProperties = new List<string>() { "Brands", "Categories", "Products"};
-
-
-            foreach (string tableName in dbSetProperties)
-            {
-                switch (tableName)
-                {
-                    case "Products":
-                        if (!context.Products.Any())
-                        {
-                            var products = new List<Product>()
-                            {
-                                new Product()
-                                {
-                                    Id = 1,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product1.jpg",
-                                    Order = 0,
-                                    CategoryId = 2,
-                                    BrandId = 1
-                                },
-                                new Product()
-                                {
-                                    Id = 2,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product2.jpg",
-                                    Order = 1,
-                                    CategoryId = 2,
-                                    BrandId = 1
-                                },
-                                new Product()
-                                {
-                                    Id = 3,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product3.jpg",
-                                    Order = 2,
-                                    CategoryId = 2,
-                                    BrandId = 1
-                                },
-                                new Product()
-                                {
-                                    Id = 4,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product4.jpg",
-                                    Order = 3,
-                                    CategoryId = 2,
-                                    BrandId = 1
-                                },
-                                new Product()
-                                {
-                                    Id = 5,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product5.jpg",
-                                    Order = 4,
-                                    CategoryId = 2,
-                                    BrandId = 2
-                                },
-                                new Product()
-                                {
-                                    Id = 6,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/home/product6.jpg",
-                                    Order = 5,
-                                    CategoryId = 2,
-                                    BrandId = 2
-                                },
-                                new Product()
-                                {
-                                    Id = 7,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product7.jpg",
-                                    Order = 6,
-                                    CategoryId = 2,
-                                    BrandId = 2
-                                },
-                                new Product()
-                                {
-                                    Id = 8,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product8.jpg",
-                                    Order = 7,
-                                    CategoryId = 25,
-                                    BrandId = 2
-                                },
-                                new Product()
-                                {
-                                    Id = 9,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product9.jpg",
-                                    Order = 8,
-                                    CategoryId = 25,
-                                    BrandId = 2
-                                },
-                                new Product()
-                                {
-                                    Id = 10,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product10.jpg",
-                                    Order = 9,
-                                    CategoryId = 25,
-                                    BrandId = 3
-                                },
-                                new Product()
-                                {
-                                    Id = 11,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product11.jpg",
-                                    Order = 10,
-                                    CategoryId = 25,
-                                    BrandId = 3
-                                },
-                                new Product()
-                                {
-                                    Id = 12,
-                                    Name = "Easy Polo Black Edition",
-                                    Price = 1025,
-                                    ImageUrl = @"/images/shop/product12.jpg",
-                                    Order = 11,
-                                    CategoryId = 25,
-                                    BrandId = 3
-                                },
-                            };
-                            FillTable<Product>(context, products, tableName);
-                        }
-                        break;
-                    case "Categories":
-                        if (!context.Categories.Any())
-                        {
-                            var categories = new List<Category>()
-            {
-                new Category()
-                {
-                    Id = 1,
-                    Name = "Sportswear",
-                    Order = 0,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 2,
-                    Name = "Nike",
-                    Order = 0,
-                    ParentId = 1
-                },
-                new Category()
-                {
-                    Id = 3,
-                    Name = "Under Armour",
-                    Order = 1,
-                    ParentId = 1
-                },
-                new Category()
-                {
-                    Id = 4,
-                    Name = "Adidas",
-                    Order = 2,
-                    ParentId = 1
-                },
-                new Category()
-                {
-                    Id = 5,
-                    Name = "Puma",
-                    Order = 3,
-                    ParentId = 1
-                },
-                new Category()
-                {
-                    Id = 6,
-                    Name = "ASICS",
-                    Order = 4,
-                    ParentId = 1
-                },
-                new Category()
-                {
-                    Id = 7,
-                    Name = "Mens",
-                    Order = 1,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 8,
-                    Name = "Fendi",
-                    Order = 0,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 9,
-                    Name = "Guess",
-                    Order = 1,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 10,
-                    Name = "Valentino",
-                    Order = 2,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 11,
-                    Name = "Dior",
-                    Order = 3,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 12,
-                    Name = "Versace",
-                    Order = 4,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 13,
-                    Name = "Armani",
-                    Order = 5,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 14,
-                    Name = "Prada",
-                    Order = 6,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 15,
-                    Name = "Dolce and Gabbana",
-                    Order = 7,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 16,
-                    Name = "Chanel",
-                    Order = 8,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 17,
-                    Name = "Gucci",
-                    Order = 1,
-                    ParentId = 7
-                },
-                new Category()
-                {
-                    Id = 18,
-                    Name = "Womens",
-                    Order = 2,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 19,
-                    Name = "Fendi",
-                    Order = 0,
-                    ParentId = 18
-                },
-                new Category()
-                {
-                    Id = 20,
-                    Name = "Guess",
-                    Order = 1,
-                    ParentId = 18
-                },
-                new Category()
-                {
-                    Id = 21,
-                    Name = "Valentino",
-                    Order = 2,
-                    ParentId = 18
-                },
-                new Category()
-                {
-                    Id = 22,
-                    Name = "Dior",
-                    Order = 3,
-                    ParentId = 18
-                },
-                new Category()
-                {
-                    Id = 23,
-                    Name = "Versace",
-                    Order = 4,
-                    ParentId = 18
-                },
-                new Category()
-                {
-                    Id = 24,
-                    Name = "Kids",
-                    Order = 3,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 25,
-                    Name = "Fashion",
-                    Order = 4,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 26,
-                    Name = "Households",
-                    Order = 5,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 27,
-                    Name = "Interiors",
-                    Order = 6,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 28,
-                    Name = "Clothing",
-                    Order = 7,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 29,
-                    Name = "Bags",
-                    Order = 8,
-                    ParentId = null
-                },
-                new Category()
-                {
-                    Id = 30,
-                    Name = "Shoes",
-                    Order = 9,
-                    ParentId = null
-                }
-            };
-                            FillTable<Category>(context, categories, tableName);
-                        }
-                        break;
-                    case "Brands":
-                        if (!context.Brands.Any())
-                        {
-                            var brands = new List<Brand>()
-                            {
-                                new Brand()
-                                {
-                                    Id = 1,
-                                    Name = "Acne",
-                                    Order = 0
-                                },
-                                new Brand()
-                                {
-                                    Id = 2,
-                                    Name = "Grüne Erde",
-                                    Order = 1
-                                },
-                                new Brand()
-                                {
-                                    Id = 3,
-                                    Name = "Albiro",
-                                    Order = 2
-                                },
-                                new Brand()
-                                {
-                                    Id = 4,
-                                    Name = "Ronhill",
-                                    Order = 3
-                                },
-                                new Brand()
-                                {
-                                    Id = 5,
-                                    Name = "Oddmolly",
-                                    Order = 4
-                                },
-                                new Brand()
-                                {
-                                    Id = 6,
-                                    Name = "Boudestijn",
-                                    Order = 5
-                                },
-                                new Brand()
-                                {
-                                    Id = 7,
-                                    Name = "Rösch creative culture",
-                                    Order = 6
-                                },
-                            };
-                            FillTable<Brand>(context, brands, tableName);
-                        }
-                        break;
-                }
-            }
-        }
-
-        public static async Task IdentityInitializeAsync(IServiceProvider services)
+        public static async Task InitializeIdentityAsync(IServiceProvider services)
         {
             var _RoleManager = services.GetService<RoleManager<Role>>();
             var _UserManager = services.GetService<UserManager<User>>();
@@ -488,6 +37,78 @@ namespace WebStore.DAL
                     await _UserManager.AddToRoleAsync(admin, Role.Administrator);
                 else
                     throw new InvalidOperationException($"Ошибка при создании администратора в БД {string.Join(", ", creation_result.Errors.Select(e => e.Description))}");
+            }
+        }
+        
+        public static async Task InitializeBaseAsync(WebStoreContext context)
+        {
+
+            //context.Database.EnsureCreated();
+            //await context.Database.EnsureCreatedAsync();
+            //await context.Database.MigrateAsync(); // Автоматическое создание и миграция базы до последней версии
+
+            //IEnumerable<PropertyInfo> dbSetProperties =
+            //    context.GetType()
+            //        .GetProperties()
+            //        .Where(p => p.PropertyType.Name.StartsWith("DbSet"));
+
+            List<string> dbSetProperties = new List<string>() { "Brands", "Categories", "Products" };
+
+            foreach (string tableName in dbSetProperties)
+            {
+                switch (tableName)
+                {
+                    case "Products":
+                        if (!context.Products.Any())
+                        {
+                            await FillTable<Product>(context, WebStore.Data.TestData.Products, tableName);
+                        }
+                        break;
+                    case "Categories":
+                        if (!context.Categories.Any())
+                        {
+                            await FillTable<Category>(context, WebStore.Data.TestData.Categories, tableName);
+                        }
+                        break;
+                    case "Brands":
+                        if (!context.Brands.Any())
+                        {
+                            await FillTable<Brand>(context, WebStore.Data.TestData.Brands, tableName);
+                        }
+                        break;
+                }
+            }
+        }
+
+        private static async Task FillTable<T>(WebStoreContext context, IEnumerable<T> entList, string tableName)
+        {
+            bool commitNeed = true;
+
+            using (var trans = await context.Database.BeginTransactionAsync())
+            {
+                switch (tableName)
+                {
+                    case "Products":
+                        context.Products.AddRange((IEnumerable<Product>)entList);
+                        break;
+                    case "Categories":
+                        context.Categories.AddRange((IEnumerable<Category>)entList);
+                        break;
+                    case "Brands":
+                        context.Brands.AddRange((IEnumerable<Brand>)entList);
+                        break;
+                    default:
+                        commitNeed = false;
+                        break;
+                }
+
+                if (commitNeed)
+                {
+                    await context.Database.ExecuteSqlRawAsync(String.Format("SET IDENTITY_INSERT [dbo].[{0}] ON", tableName));
+                    await context.SaveChangesAsync();
+                    await context.Database.ExecuteSqlRawAsync(String.Format("SET IDENTITY_INSERT [dbo].[{0}] OFF", tableName));
+                    trans.Commit();
+                }
             }
         }
     }

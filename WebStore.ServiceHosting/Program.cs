@@ -1,41 +1,29 @@
 using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebStore.DAL;
 
 namespace WebStore.ServiceHosting
 {
-    //public class Program
-    //{
-    //    public static void Main(string[] args) =>
-    //        CreateWebHostBuilder(args)
-    //            .Build()
-    //            .Run();
-
-    //    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-    //        WebHost.CreateDefaultBuilder(args)
-    //            .UseStartup<Startup>();
-    //}
-
     public class Program
     {
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
 
-            using (var scope = host.Services.CreateScope()) // нужно для получения DbContext
+            using (var scope = host.Services.CreateScope()) // для получения DbContext
             {
                 var services = scope.ServiceProvider;
-                //var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 try
                 {
                     WebStoreContext context = services.GetRequiredService<WebStoreContext>();
-                    //DbInitializer.InitializeUsers(services);
-                    DbInitializer.IdentityInitializeAsync(services).Wait();
-                    DbInitializer.Initialize(context);
+                    //context.Database.EnsureCreated();
+                    //await db.EnsureCreatedAsync();
+                    //await db.MigrateAsync(); // Автоматическое создание и миграция базы до последней версии
+                    DbInitializer.InitializeBaseAsync(context).Wait();
+                    DbInitializer.InitializeIdentityAsync(services).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -43,7 +31,6 @@ namespace WebStore.ServiceHosting
                     logger.LogError(ex, "Oops. Something went wrong at DB initializing...");
                 }
             }
-
             host.Run();
         }
 
@@ -51,7 +38,6 @@ namespace WebStore.ServiceHosting
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
-
     }
 
 }
