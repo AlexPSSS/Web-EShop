@@ -24,47 +24,32 @@ namespace WebStore.Services.Product
 
         public BrandDTO GetBrandById(int id) => _context.Brands.Find(id).ToDTO();
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
+        public PagedProductsDTO GetProducts(ProductFilter Filter = null)
         {
-            var query = _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Brand)
-                .AsQueryable();
-            if (filter.BrandId.HasValue)
-                query = query.Where(c => c.BrandId.HasValue && c.BrandId.Value.Equals(filter.BrandId.Value));
-            if (filter.CategoryId.HasValue)
-                query = query.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
+            IQueryable<Domain.Entities.Product> query = _context.Products;
 
-            return query
-                .Select(p => p.ToDTO());
+            if (Filter?.BrandId != null)
+                query = query.Where(product => product.BrandId == Filter.BrandId);
+
+            if (Filter?.CategoryId != null)
+                query = query.Where(product => product.CategoryId == Filter.CategoryId);
+
+            if (Filter?.Ids?.Count > 0)
+                query = query.Where(product => Filter.Ids.Contains(product.Id));
+
+            var total_count = query.Count();
+
+            if (Filter?.PageSize != null)
+                query = query
+                   .Skip((Filter.Page - 1) * (int)Filter.PageSize)
+                   .Take((int)Filter.PageSize);
+
+            return new PagedProductsDTO
+            {
+                Products = query.AsEnumerable().ToDTO(),
+                TotalCount = total_count
+            };
         }
-
-        //public PagedProductsDTO GetProducts(ProductFilter Filter = null)
-        //{
-        //    IQueryable<Domain.Entities.Product> query = _context.Products;
-
-        //    if (Filter?.BrandId != null)
-        //        query = query.Where(product => product.BrandId == Filter.BrandId);
-
-        //    if (Filter?.CategoryId != null)
-        //        query = query.Where(product => product.CategoryId == Filter.CategoryId);
-
-        //    if (Filter?.Ids?.Count > 0)
-        //        query = query.Where(product => Filter.Ids.Contains(product.Id));
-
-        //    var total_count = query.Count();
-
-        //    if (Filter?.PageSize != null)
-        //        query = query
-        //           .Skip((Filter.Page - 1) * (int)Filter.PageSize)
-        //           .Take((int)Filter.PageSize);
-
-        //    return new PagedProductsDTO
-        //    {
-        //        Products = query.AsEnumerable().ToDTO(),
-        //        TotalCount = total_count
-        //    };
-        //}
 
         /// <summary>
         /// Продукт
