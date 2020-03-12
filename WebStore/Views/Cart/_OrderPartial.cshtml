@@ -19,9 +19,11 @@
             @if (sumObj != null)
             {
                 var sum = (decimal)sumObj;
-                <ul>
-                    <li>Итого <span>@sum.ToString("C")</span></li>
-                </ul>
+            <ul>
+                <li>Налоги <span>0</span></li>
+                <li>Доставка <span>0</span></li>
+                <li>Итого: <span id="total-order-sum">@sum.ToString("C")</span></li>
+            </ul>
                 if (sum > 0)
                 {
                     <input type="submit" value="Оформить заказ" class="btn btn-default check_out" />
