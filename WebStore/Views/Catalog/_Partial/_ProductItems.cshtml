@@ -18,7 +18,7 @@
                         <a asp-controller="Cart"
                            asp-action="AddToCart"
                            asp-route-id="@item.Id"
-                           asp-route-returnUrl="@Context.Request.Path"
+                           data-id="@item.Id"
                            class="btn btn-default add-to-cart">
                             <i class="fa fa-shopping-cart"></i>
                             Добавить в корзину
@@ -37,6 +37,7 @@
                                asp-controller="Cart" 
                                asp-action="AddToCart" 
                                asp-route-id="@item.Id"
+                               data-id="@item.Id"
                                class="btn btn-default add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 Добавить в корзину

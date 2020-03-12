@@ -1,9 +1,4 @@
-﻿@*{
-        ViewData["Title"] = "ProductDetails";
-    }
-*@
-
-@model WebStore.Domain.Models.ProductViewModel
+﻿@model WebStore.Domain.Models.ProductViewModel
 @{
     ViewData["Title"] = "Товар:" + Model.Name;
 }
@@ -62,7 +57,7 @@
                         <!--/product-information-->
                         <img src="~/images/product-details/new.jpg" class="newarrival" alt="" />
                         <h2>@Model.Name</h2>
-                        <p>Код товара: @Model.Id.ToString()</p>
+                        <p>Код товара: @Model.Id.ToString("000000")</p>
                         <img src="~/images/product-details/rating.png" alt="" />
                         <span>
                             <span>@Model.Price.ToString("C")</span>
@@ -71,8 +66,8 @@
                             <a asp-controller="Cart"
                                asp-action="AddToCart"
                                asp-route-id="@Model.Id"
-                               asp-route-returnUrl="@Context.Request.Path"
-                               class="btn btn-fefault cart">
+                               data-id="@Model.Id"
+                               class="btn btn-default add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 Добавить в корзину
                             </a>
