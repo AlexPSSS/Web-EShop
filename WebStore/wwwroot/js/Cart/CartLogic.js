@@ -84,12 +84,11 @@
                 if (count > 1) {
                     $(".cart_quantity_input", container).val(count - 1);
                     Cart.refreshPrice(container);
-                    Cart.refreshCartView();
                 } else {
                     container.remove();
                     Cart.refreshTotalPrice();
-                    Cart.refreshCartView();
                 }
+                Cart.refreshCartView();
             })
             .fail(function () { console.log("decrementItem fail"); });
     },
