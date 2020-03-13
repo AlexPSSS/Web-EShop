@@ -19,9 +19,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Order)
         </th>
-        @*<th>
-                        @Html.DisplayNameFor(model => model.SectionId)
-                    </th>*@
+        <th>
+        
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.BrandId)
         </th>
@@ -47,9 +48,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Order)
             </td>
-            @*<td>
-                            @Html.DisplayFor(modelItem => item.SectionId)
-                        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BrandId)
             </td>

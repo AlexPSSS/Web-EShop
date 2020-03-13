@@ -1,19 +1,24 @@
-﻿@model WebStore.Domain.Models.CatalogViewModel
+﻿@model CatalogViewModel
+
 @{
     ViewData["Title"] = "Shop";
 }
 
 <vc:bread-crumbs />
 
-@await Html.PartialAsync("_Partial/_Advertisement")
+<partial name="_Partial/_Advertisement" />
 
 <section>
-    <div class="row">
-        <div class="col-sm-3">
-            @await Html.PartialAsync("_Partial/_LeftSideBar")
-        </div>
-        <div class="col-sm-9 padding-right">
-            @await Html.PartialAsync("_Partial/_ProductItems", Model.Products)
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="_Partial/_LeftSideBar" />
+            </div>
+
+            <div id="catalog-items-container">
+                <partial name="_Partial/_ProductItems" model="@Model.Products" />
+            </div>
+
             <paging page-model="@Model.PageViewModel"
                     page-action="Shop"
                     page-url-CategoryId="@Model.CategoryId"
@@ -22,3 +27,16 @@
         </div>
     </div>
 </section>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-loading-overlay/loadingoverlay.min.js"></script>
+    <script src="~/js/Shop/ProductItems.js" asp-append-version="true"></script>
+    <script>
+        $(function() {
+            ProductItems.init({
+                getUrl: "@Url.Action("GetFiltratedItems", "Catalog")"
+            });
+        })
+    </script>
+}

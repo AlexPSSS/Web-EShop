@@ -24,6 +24,6 @@ namespace WebStore.Domain.DTO.Products
         public BrandDTO Brand { get; set; }
 
         /// <summary>Сведения о секции товара в каталоге</summary>
-        public SectionDTO Section { get; set; }
+        public CategoryDTO Category { get; set; }
     }
 }

@@ -3,7 +3,7 @@
     public enum BreadCrumbsType : byte
     {
         None,
-        Section,
+        Category,
         Brand,
         Product
     }

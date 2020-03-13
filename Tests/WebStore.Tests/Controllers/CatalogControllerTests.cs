@@ -41,7 +41,7 @@ namespace WebStore.Tests.Controllers
                        Id = 1,
                        Name = $"Brand of product {id}"
                    },
-                   Section = new SectionDTO
+                   Category = new CategoryDTO
                    {
                        Id = 1,
                        Name = $"Section of product {id}"
@@ -98,7 +98,7 @@ namespace WebStore.Tests.Controllers
                         Id = 1,
                         Name = "Brand of product 1"
                     },
-                    Section = new SectionDTO
+                    Category = new CategoryDTO
                     {
                         Id = 1,
                         Name = "Section of product 1"
@@ -116,7 +116,7 @@ namespace WebStore.Tests.Controllers
                         Id = 2,
                         Name = "Brand of product 2"
                     },
-                    Section = new SectionDTO
+                    Category = new CategoryDTO
                     {
                         Id = 2,
                         Name = "Section of product 2"
