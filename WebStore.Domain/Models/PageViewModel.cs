@@ -10,6 +10,6 @@ namespace WebStore.Domain.Models
 
         public int PageNumber { get; set; }
 
-        public int TotalPages => (int)Math.Ceiling((decimal)TotalItems / PageSize);
+        public int TotalPages => (TotalItems + PageSize - 1) / PageSize;
     }
 }
