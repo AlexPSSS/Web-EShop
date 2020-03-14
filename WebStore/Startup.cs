@@ -21,6 +21,7 @@ using WebStore.Infrastructure.AutoMapper;
 using WebStore.Services.Product;
 using WebStore.Logger;
 using WebStore.Infrastructure.Middleware;
+using WebStore.Hubs;
 
 namespace WebStore
 {
@@ -34,6 +35,7 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddAutoMapper(opt =>
             {
                 opt.AddProfile<ViewModelMapping>();
@@ -131,6 +133,10 @@ namespace WebStore
             //var logLevel = _configuration["Logging:LogLevel:Microsoft"];
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
+            //app.UseSignalR(route =>
+            //{
+            //    route.MapHub<InformationHub>("/info");
+            //});
 
             app.UseRouting();
 
@@ -139,6 +145,9 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<InformationHub>("/info"
+                );
+
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
