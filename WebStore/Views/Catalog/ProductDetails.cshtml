@@ -1,12 +1,14 @@
 ﻿@*{
-    ViewData["Title"] = "ProductDetails";
-}
+        ViewData["Title"] = "ProductDetails";
+    }
 *@
 
 @model WebStore.Domain.Models.ProductViewModel
 @{
     ViewData["Title"] = "Товар:" + Model.Name;
 }
+
+<vc:bread-crumbs />
 
 <section>
     <div class="row">

@@ -7,9 +7,21 @@
         <member name="T:WebStore.ServiceHosting.Controllers.ProductsApiController">
             <summary>Контроллер каталога товаров</summary>
         </member>
+        <member name="M:WebStore.ServiceHosting.Controllers.ProductsApiController.#ctor(WebStore.Interfaces.Services.IProductService)">
+            <summary>Конструктор контроллера каталога товаров</summary>
+            <param name="ProductService">Сервис получения сведений о продуктах</param>
+        </member>
         <member name="M:WebStore.ServiceHosting.Controllers.ProductsApiController.GetCategories">
             <summary>Получение всех разделов каталога товаров</summary>
             <returns>Перечисление всех разделов каталога</returns>
+        </member>
+        <member name="M:WebStore.ServiceHosting.Controllers.ProductsApiController.GetCategoryById(System.Int32)">
+            <summary>Получение раздела каталога товаров по Id</summary>
+            <returns>DTO-модель раздела каталога</returns>
+        </member>
+        <member name="M:WebStore.ServiceHosting.Controllers.ProductsApiController.GetBrandById(System.Int32)">
+            <summary>Получение всех брендов товаров из каталога</summary>
+            <returns>DTO-модель бренда товаров каталога</returns>
         </member>
         <member name="M:WebStore.ServiceHosting.Controllers.ProductsApiController.GetBrands">
             <summary>Получение всех брендов товаров из каталога</summary>

@@ -23,11 +23,13 @@ namespace WebStore.Services.Product
         {
             return _context.Categories.ToList();
         }
+        public SectionDTO GetCategoryById(int id) => _context.Categories.Find(id).ToDTO();
 
         public IEnumerable<Brand> GetBrands()
         {
             return _context.Brands.ToList();
         }
+        public BrandDTO GetBrandById(int id) => _context.Brands.Find(id).ToDTO();
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
         {

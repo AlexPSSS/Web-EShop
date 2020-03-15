@@ -33,7 +33,8 @@ namespace WebStore.ServiceHosting
                 try
                 {
                     WebStoreContext context = services.GetRequiredService<WebStoreContext>();
-                    DbInitializer.InitializeUsers(services);
+                    //DbInitializer.InitializeUsers(services);
+                    DbInitializer.IdentityInitializeAsync(services).Wait();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
