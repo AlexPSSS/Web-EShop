@@ -57,7 +57,7 @@
                                    class="cart_quantity_up">
                                     &nbsp;+&nbsp;
                                 </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="@item.Value" autocomplete="off" size="2">
+                                <input class="cart_quantity_input" type="number" name="quantity" value="@item.Value" autocomplete="off" size="2">
                                 <a asp-controller="Cart"
                                    asp-action="DecrementFromCart"
                                    asp-route-id="@item.Key.Id"
@@ -95,7 +95,9 @@
         <h3>Оформите заказ</h3>
     </div>
     <div class="row login-form">
-        @Html.Partial("_OrderPartial", Model.OrderViewModel,
-            new ViewDataDictionary(ViewData) { { "sumCart", sumCart } })
+        @*
+        @Html.Partial("_OrderPartial", Model.OrderViewModel, new ViewDataDictionary(ViewData) { { "sumCart", sumCart } })
+        *@
+        <partial name="_OrderPartial" model="@Model.OrderViewModel" view-data="@(new ViewDataDictionary(ViewData) { { "sumCart", sumCart } })" />
     </div>
 </section><!--/#do_action-->
