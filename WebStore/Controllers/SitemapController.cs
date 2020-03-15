@@ -21,12 +21,12 @@ namespace WebStore.Controllers
                 new SitemapNode(Url.Action("Index", "WebAPITest")),
             };
 
-            nodes.AddRange(ProductData.GetCategories().Select(section => new SitemapNode(Url.Action("Shop", "Catalog", new { CategoryId = section.Id }))));
+            nodes.AddRange(ProductData.GetCategories().Select(category => new SitemapNode(Url.Action("Shop", "Catalog", new { CategoryId = category.Id }))));
 
             foreach (var brand in ProductData.GetBrands())
                 nodes.Add(new SitemapNode(Url.Action("Shop", "Catalog", new { BrandId = brand.Id })));
 
-            foreach (var product in ProductData.GetProducts(new ProductFilter()))
+            foreach (var product in ProductData.GetProducts(new ProductFilter()).Products)
                 nodes.Add(new SitemapNode(Url.Action("ProductDetails", "Catalog", new { product.Id })));
 
             return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));

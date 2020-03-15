@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿using System.Linq;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
 using WebStore.Domain.Models;
@@ -64,6 +60,30 @@ namespace WebStore.Services.Product
             _CartStore.Cart = cart;
         }
 
+        //public CartViewModel TransformCart()
+        //{
+        //    var products = _ProductData.GetProducts(new ProductFilter
+        //    {
+        //        Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToList()
+        //    });
+
+        //    var products_view_models = products.Select(p => new ProductViewModel
+        //    {
+        //        Id = p.Id,
+        //        Name = p.Name,
+        //        Price = p.Price,
+        //        Order = p.Order,
+        //        ImageUrl = p.ImageUrl,
+        //        Brand = p.Brand?.Name
+        //    });
+
+        //    return new CartViewModel
+        //    {
+        //        Items = _CartStore.Cart.Items.ToDictionary(
+        //            x => products_view_models.First(p => p.Id == x.ProductId),
+        //            x => x.Quantity)
+        //    };
+        //}
         public CartViewModel TransformCart()
         {
             var products = _ProductData.GetProducts(new ProductFilter
@@ -71,7 +91,7 @@ namespace WebStore.Services.Product
                 Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToList()
             });
 
-            var products_view_models = products.Select(p => new ProductViewModel
+            var products_view_models = products.Products.Select(p => new ProductViewModel
             {
                 Id = p.Id,
                 Name = p.Name,

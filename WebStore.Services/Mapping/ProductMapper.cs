@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.DTO.Products;
-using WebStore.Domain.Entities;
 
 namespace WebStore.Services.Mapping
 {
     public static class ProductMapper
     {
-        public static ProductDTO ToDTO(this WebStore.Domain.Entities.Product p) => p is null ? null : new ProductDTO
+        public static ProductDTO ToDTO(this Domain.Entities.Product p) => p is null ? null : new ProductDTO
         {
             Id = p.Id,
             Name = p.Name,
@@ -29,10 +25,11 @@ namespace WebStore.Services.Mapping
             }
         };
 
-        public static WebStore.Domain.Entities.Product FromDTO(this ProductDTO p) => p is null ? null : new WebStore.Domain.Entities.Product
-        {
-            Id = p.Id
-        };
+        public static IEnumerable<ProductDTO> ToDTO(this IEnumerable<Domain.Entities.Product> Products) => Products?.Select(ToDTO);
 
+        //public static Domain.Entities.Product FromDTO(this ProductDTO p) => p is null ? null : new WebStore.Domain.Entities.Product
+        //{
+        //    Id = p.Id
+        //};
     }
 }

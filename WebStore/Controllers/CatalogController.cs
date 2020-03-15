@@ -1,41 +1,51 @@
 ﻿using System.Linq;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
 using WebStore.Domain.Models;
 using WebStore.Infrastructure;
+using AutoMapper;
 
 namespace WebStore.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IConfiguration _Configuration;
 
-        public CatalogController(IProductService productService)
+        public CatalogController(IProductService productService, IConfiguration Configuration)
         {
             _productService = productService;
+            _Configuration = Configuration;
         }
 
         [SimpleActionFilter]
-        public IActionResult Shop(int? categoryId, int? brandId, [FromServices] IMapper Mapper)
+        public IActionResult Shop(int? SectionId, int? BrandId, [FromServices] IMapper Mapper, int Page = 1)
         {
-            // получаем список отфильтрованных продуктов
-            var products = _productService.GetProducts(new ProductFilter 
-            { 
-                BrandId = brandId, 
-                CategoryId = categoryId 
+            var page_size = int.TryParse(_Configuration["PageSize"], out var size) ? size : (int?)null;
+
+            var products = _productService.GetProducts(new ProductFilter
+            {
+                CategoryId = SectionId,
+                BrandId = BrandId,
+                Page = Page,
+                PageSize = page_size
             });
 
-            // сконвертируем в CatalogViewModel
-            return View( new CatalogViewModel()
+            return View(new CatalogViewModel
             {
-                BrandId = brandId,
-                CategoryId = categoryId,
-                Products = products.Select(Mapper.Map<ProductViewModel>).OrderBy(p => p.Order)
+                CategoryId = SectionId,
+                BrandId = BrandId,
+                Products = products.Products.Select(Mapper.Map<ProductViewModel>).OrderBy(p => p.Order),
+                PageViewModel = new PageViewModel
+                {
+                    PageSize = page_size ?? 0,
+                    PageNumber = Page,
+                    TotalItems = products.TotalCount
+                }
             });
         }
-
         [Route("{id}")]
         public IActionResult ProductDetails(int id)
         {

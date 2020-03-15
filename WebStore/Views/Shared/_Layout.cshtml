@@ -61,11 +61,25 @@
         <script src="~/js/site.min.js"></script>
     </environment>
 
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
-<script src="~/js/jquery.scrollUp.min.js"></script>
-<!--Секция для отображения кастомных скриптов, если понадобятся-->
-@RenderSection("scripts", false)
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.scrollUp.min.js"></script>
+    <!--Секция для отображения кастомных скриптов, если понадобятся-->
+    <script src="~/js/Cart/CartLogic.js" asp-append-version="true"></script>
+
+    <script>
+    $(function() {
+        Cart.init({
+            getCartViewLink: "@Url.Action("GetCartView", "Cart")",
+            addToCartLink: "@Url.Action("AddToCartAPI", "Cart")",
+            decrementLink: "@Url.Action("DecrimentFromCartAPI", "Cart")",
+            removeFromCartLink: "@Url.Action("RemoveFromCartAPI", "Cart")",
+            removeAllLink: "@Url.Action("RemoveAllAPI", "Cart")"
+        });
+    })
+    </script>
+
+    @RenderSection("scripts", false)
 </body>
 </html>
 

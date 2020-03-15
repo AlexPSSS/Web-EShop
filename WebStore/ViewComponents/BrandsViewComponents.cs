@@ -27,25 +27,38 @@ namespace WebStore.ViewComponents
             });
         }
 
-        private List<BrandViewModel> GetBrands()
-        {
-            var brands = _productService.GetBrands();
+        //private List<BrandViewModel> GetBrands()
+        //{
+        //    var brands = _productService.GetBrands();
 
-            var brandList = new List<BrandViewModel>();
-            // 
-            foreach (var branOne in brands)
-            {
-                brandList.Add(new BrandViewModel()
-                {
-                    Id = branOne.Id,
-                    Name = branOne.Name,
-                    Order = branOne.Order,
-                });
-            }
+        //    var brandList = new List<BrandViewModel>();
+        //    // 
+        //    foreach (var branOne in brands)
+        //    {
+        //        brandList.Add(new BrandViewModel()
+        //        {
+        //            Id = branOne.Id,
+        //            Name = branOne.Name,
+        //            Order = branOne.Order,
+        //        });
+        //    }
 
-            brandList = brandList.OrderBy(c => c.Order).ToList();
-            return brandList;
+        //    brandList = brandList.OrderBy(c => c.Order).ToList();
+        //    return brandList;
 
-        }
+        //}
+
+        private IEnumerable<BrandViewModel> GetBrands() => _productService
+           .GetBrands()
+           .Where(brand => brand.ProductsCount > 0)
+           .Select(brand => new BrandViewModel
+           {
+               Id = brand.Id,
+               Name = brand.Name,
+               Order = brand.Order,
+               Quantity = brand.ProductsCount,
+           })
+           .OrderBy(brand => brand.Order);
+
     }
 }
