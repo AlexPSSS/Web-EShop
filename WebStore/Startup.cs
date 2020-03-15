@@ -133,11 +133,6 @@ namespace WebStore
             //var logLevel = _configuration["Logging:LogLevel:Microsoft"];
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
-            //app.UseSignalR(route =>
-            //{
-            //    route.MapHub<InformationHub>("/info");
-            //});
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -145,8 +140,7 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<InformationHub>("/info"
-                );
+                endpoints.MapHub<InformationHub>("/info");
 
                 endpoints.MapControllerRoute(
                     name: "areas",

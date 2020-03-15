@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ namespace WebStore.ServiceHosting
         {
             var host = BuildWebHost(args);
 
-            using (var scope = host.Services.CreateScope()) // для получения DbContext
+            using (var scope = host.Services.CreateScope()) // РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ DbContext
             {
                 var services = scope.ServiceProvider;
                 try
@@ -21,7 +21,7 @@ namespace WebStore.ServiceHosting
                     WebStoreContext context = services.GetRequiredService<WebStoreContext>();
                     //context.Database.EnsureCreated();
                     //await db.EnsureCreatedAsync();
-                    //await db.MigrateAsync(); // Автоматическое создание и миграция базы до последней версии
+                    //await db.MigrateAsync(); // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ СЃРѕР·РґР°РЅРёРµ Рё РјРёРіСЂР°С†РёСЏ Р±Р°Р·С‹ РґРѕ РїРѕСЃР»РµРґРЅРµР№ РІРµСЂСЃРёРё
                     DbInitializer.InitializeBaseAsync(context).Wait();
                     DbInitializer.InitializeIdentityAsync(services).Wait();
                 }
