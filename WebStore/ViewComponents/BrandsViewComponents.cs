@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +12,7 @@ namespace WebStore.ViewComponents
     {
         private readonly IProductService _productService;
 
-        public BrandsViewComponent(IProductService productService)
-        {
-            _productService = productService;
-        }
+        public BrandsViewComponent(IProductService productService) => _productService = productService;
 
         public async Task<IViewComponentResult> InvokeAsync(string BrandId)
         {
@@ -26,27 +22,6 @@ namespace WebStore.ViewComponents
                 CurrentBrandId = int.TryParse(BrandId, out var id) ? id : (int?)null
             });
         }
-
-        //private List<BrandViewModel> GetBrands()
-        //{
-        //    var brands = _productService.GetBrands();
-
-        //    var brandList = new List<BrandViewModel>();
-        //    // 
-        //    foreach (var branOne in brands)
-        //    {
-        //        brandList.Add(new BrandViewModel()
-        //        {
-        //            Id = branOne.Id,
-        //            Name = branOne.Name,
-        //            Order = branOne.Order,
-        //        });
-        //    }
-
-        //    brandList = brandList.OrderBy(c => c.Order).ToList();
-        //    return brandList;
-
-        //}
 
         private IEnumerable<BrandViewModel> GetBrands() => _productService
            .GetBrands()

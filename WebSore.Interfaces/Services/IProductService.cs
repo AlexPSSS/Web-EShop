@@ -6,9 +6,9 @@ namespace WebStore.Interfaces.Services
 {
     public interface IProductService
     {
-        IEnumerable<SectionDTO> GetCategories();
+        IEnumerable<CategoryDTO> GetCategories();
 
-        SectionDTO GetCategoryById(int id);
+        CategoryDTO GetCategoryById(int id);
 
         IEnumerable<BrandDTO> GetBrands();
 

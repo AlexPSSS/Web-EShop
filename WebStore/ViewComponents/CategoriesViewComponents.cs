@@ -12,10 +12,7 @@ namespace WebStore.ViewComponents
     {
         private readonly IProductService _productService;
 
-        public CategoriesViewComponent(IProductService productService)
-        {
-            _productService = productService;
-        }
+        public CategoriesViewComponent(IProductService productService) => _productService = productService;
 
         public async Task<IViewComponentResult> InvokeAsync(string CategoryId)
         {

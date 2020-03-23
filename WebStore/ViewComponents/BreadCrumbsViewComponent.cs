@@ -15,7 +15,7 @@ namespace WebStore.ViewComponents
         private void GetParameters(out BreadCrumbsType Type, out int id, out BreadCrumbsType FromType)
         {
             Type = Request.Query.ContainsKey("CategoryId")
-                ? BreadCrumbsType.Section
+                ? BreadCrumbsType.Category
                 : Request.Query.ContainsKey("BrandId")
                     ? BreadCrumbsType.Brand
                     : BreadCrumbsType.None;
@@ -26,15 +26,16 @@ namespace WebStore.ViewComponents
             }
 
             id = 0;
-            FromType = BreadCrumbsType.Section;
+            FromType = BreadCrumbsType.Category;
 
             switch (Type)
             {
                 default: throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
 
-                case BreadCrumbsType.None: break;
+                case BreadCrumbsType.None: 
+                    break;
 
-                case BreadCrumbsType.Section:
+                case BreadCrumbsType.Category:
                     id = int.Parse(Request.Query["CategoryId"].ToString());
                     break;
 
@@ -60,12 +61,12 @@ namespace WebStore.ViewComponents
             {
                 default: return View(Array.Empty<BreadCrumbsViewModel>());
 
-                case BreadCrumbsType.Section:
+                case BreadCrumbsType.Category:
                     return View(new[]
                     {
                         new BreadCrumbsViewModel
                         {
-                            BreadCrumbsType = BreadCrumbsType.Section,
+                            BreadCrumbsType = BreadCrumbsType.Category,
                             Id = id.ToString(),
                             Name = _ProductData.GetCategoryById(id).Name
                         }
@@ -89,11 +90,11 @@ namespace WebStore.ViewComponents
                         new BreadCrumbsViewModel
                         {
                             BreadCrumbsType = FromType,
-                            Id = FromType == BreadCrumbsType.Section
-                                ? product.Section.Id.ToString()
+                            Id = FromType == BreadCrumbsType.Category
+                                ? product.Category.Id.ToString()
                                 : product.Brand.Id.ToString(),
-                            Name = FromType == BreadCrumbsType.Section
-                                ? _ProductData.GetCategoryById(product.Section.Id).Name
+                            Name = FromType == BreadCrumbsType.Category
+                                ? _ProductData.GetCategoryById(product.Category.Id).Name
                                 : _ProductData.GetBrandById(product.Brand.Id).Name
                         },
                         new BreadCrumbsViewModel

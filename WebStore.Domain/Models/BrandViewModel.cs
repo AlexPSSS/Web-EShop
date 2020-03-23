@@ -4,10 +4,7 @@ namespace WebStore.Domain.Models
 {
     public class BrandViewModel : INamedEntity, IOrderedEntity
     {
-        public BrandViewModel()
-        {
-            Quantity = 0;
-        }
+        public BrandViewModel() => Quantity = 0;
 
         public int Id { get; set; }
         public string Name { get; set; }

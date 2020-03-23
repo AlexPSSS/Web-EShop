@@ -13,9 +13,9 @@ namespace WebStore.Clients.Products
     {
         public ProductsClient(IConfiguration config) : base(config, WebAPI.Products) { }
 
-        public IEnumerable<SectionDTO> GetCategories() => Get<List<SectionDTO>>($"{_ServiceAddress}/categories");
+        public IEnumerable<CategoryDTO> GetCategories() => Get<List<CategoryDTO>>($"{_ServiceAddress}/categories");
 
-        public SectionDTO GetCategoryById(int id) => Get<SectionDTO>($"{_ServiceAddress}/categories/{id}");
+        public CategoryDTO GetCategoryById(int id) => Get<CategoryDTO>($"{_ServiceAddress}/categories/{id}");
 
         public BrandDTO GetBrandById(int id) => Get<BrandDTO>($"{_ServiceAddress}/brands/{id}");
 

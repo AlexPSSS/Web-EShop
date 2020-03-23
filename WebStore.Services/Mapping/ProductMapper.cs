@@ -18,7 +18,7 @@ namespace WebStore.Services.Mapping
                 Id = p.Brand.Id,
                 Name = p.Brand.Name
             },
-            Section = p.Category is null ? null : new SectionDTO
+            Category = p.Category is null ? null : new CategoryDTO
             {
                 Id = p.Category.Id,
                 Name = p.Category.Name

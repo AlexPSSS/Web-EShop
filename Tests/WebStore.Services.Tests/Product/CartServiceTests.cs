@@ -43,7 +43,7 @@ namespace WebStore.Services.Tests.Product
                     Order = 0,
                     ImageUrl = "Product1.png",
                     Brand = new BrandDTO {Id = 1, Name = "Brand 1"},
-                    Section = new SectionDTO {Id = 1, Name = "Section 1"}
+                    Category = new CategoryDTO {Id = 1, Name = "Section 1"}
                 },
                 new ProductDTO
                 {
@@ -53,7 +53,7 @@ namespace WebStore.Services.Tests.Product
                     Order = 0,
                     ImageUrl = "Product2.png",
                     Brand = new BrandDTO {Id = 2, Name = "Brand 2"},
-                    Section = new SectionDTO {Id = 2, Name = "Section 2"}
+                    Category = new CategoryDTO {Id = 2, Name = "Section 2"}
                 },
             };
 

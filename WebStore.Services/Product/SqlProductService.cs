@@ -16,9 +16,9 @@ namespace WebStore.Services.Product
 
         public SqlProductService(WebStoreContext context) => _context = context;
 
-        public IEnumerable<SectionDTO> GetCategories() => _context.Categories.ToDTO().AsEnumerable();
+        public IEnumerable<CategoryDTO> GetCategories() => _context.Categories.ToDTO().AsEnumerable();
 
-        public SectionDTO GetCategoryById(int id) => _context.Categories.Find(id).ToDTO();
+        public CategoryDTO GetCategoryById(int id) => _context.Categories.Find(id).ToDTO();
 
         public IEnumerable<BrandDTO> GetBrands() => _context.Brands.ToDTO();
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Interfaces.Services;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Products;
-using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 
 namespace WebStore.ServiceHosting.Controllers
@@ -26,12 +21,12 @@ namespace WebStore.ServiceHosting.Controllers
         /// <summary>Получение всех разделов каталога товаров</summary>
         /// <returns>Перечисление всех разделов каталога</returns>
         [HttpGet("categories")]
-        public IEnumerable<SectionDTO> GetCategories() => _productService.GetCategories();
+        public IEnumerable<CategoryDTO> GetCategories() => _productService.GetCategories();
 
         /// <summary>Получение раздела каталога товаров по Id</summary>
         /// <returns>DTO-модель раздела каталога</returns>
         [HttpGet("categories/{id}")]
-        public SectionDTO GetCategoryById(int id) => _productService.GetCategoryById(id);
+        public CategoryDTO GetCategoryById(int id) => _productService.GetCategoryById(id);
 
         /// <summary>Получение всех брендов товаров из каталога</summary>
         /// <returns>DTO-модель бренда товаров каталога</returns>

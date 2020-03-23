@@ -25,7 +25,7 @@
         <member name="P:WebStore.Domain.DTO.Products.ProductDTO.Brand">
             <summary>Сведения о бренде</summary>
         </member>
-        <member name="P:WebStore.Domain.DTO.Products.ProductDTO.Section">
+        <member name="P:WebStore.Domain.DTO.Products.ProductDTO.Category">
             <summary>Сведения о секции товара в каталоге</summary>
         </member>
         <member name="P:WebStore.Domain.Entities.Category.ParentId">

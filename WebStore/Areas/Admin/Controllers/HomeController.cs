@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.Filters;
+using AutoMapper;
+using System.Linq;
+using WebStore.Domain.Models;
+using WebStore.Domain.Entities;
 
 namespace WebStore.Areas.Admin.Controllers
 {
@@ -22,9 +26,11 @@ namespace WebStore.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult ProductList()
+        public IActionResult ProductList([FromServices] IMapper Mapper)
         {
-            return View(_productData.GetProducts(new ProductFilter()));
+            var productListDTO = _productData.GetProducts(new ProductFilter()).Products;
+            var productList = productListDTO.Select(Mapper.Map<Product>).OrderBy(p => p.Order);
+            return View(productList);
         }
     }
 }

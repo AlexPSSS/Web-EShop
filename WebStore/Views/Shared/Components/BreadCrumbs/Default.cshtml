@@ -7,14 +7,14 @@
             <li><a asp-controller="Catalog" asp-action="Shop">Каталог</a></li>
 
             @foreach (var item in Model)
-        {
-            switch (item.BreadCrumbsType)
             {
-                default: throw new ArgumentOutOfRangeException();
+                switch (item.BreadCrumbsType)
+                {
+                    default: throw new ArgumentOutOfRangeException();
 
-                case BreadCrumbsType.None: break;
+                    case BreadCrumbsType.None: break;
 
-                case BreadCrumbsType.Section:
+                    case BreadCrumbsType.Category:
             <li class="active">
                 <a asp-controller="Catalog"
                    asp-action="Shop"
